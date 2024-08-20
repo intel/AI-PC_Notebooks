@@ -1,0 +1,11 @@
+langchain==0.2.12
+transformers==4.44.0
+tiktoken==0.7.0
+llama-cpp-python==0.2.84
+langchain-community==0.2.11
+transformers-stream-generator==0.0.5
+streamlit==1.37.0
+numexpr==2.10.1
+numpy==1.26.4
+huggingface-hub==0.24.3
+wikipedia==1.4.0
