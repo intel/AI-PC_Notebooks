@@ -1,15 +1,12 @@
+import torch
+from transformers import AutoTokenizer, GenerationConfig, TextIteratorStreamer
+from ipex_llm.transformers import AutoModelForCausalLM
+import streamlit as st
+import threading
 import os
 
-os.environ["SYCL_CACHE_PERSISTENT"]="1"
-os.environ["BIGDL_LLM_XMX_DISABLED"]="1"
-
-import threading
-
-import streamlit as st
-
-from ipex_llm.transformers import AutoModelForCausalLM
-from transformers import AutoTokenizer, GenerationConfig, TextIteratorStreamer
-import torch
+os.environ["SYCL_CACHE_PERSISTENT"] = "1"
+os.environ["BIGDL_LLM_XMX_DISABLED"] = "1"
 
 
 MODEL_CACHE = {}
@@ -29,10 +26,10 @@ def warmup_model(model, tokenizer):
         prompt = "user: {prompt}\n\nassistant:".format(prompt=question)
     dummy_input = tokenizer(prompt, return_tensors="pt").to("xpu")
     generation_config = GenerationConfig(use_cache=True,
-                                        top_k=50,
-                                        top_p=0.95,
-                                        temperature=0.7, do_sample=True,
-                                        )
+                                         top_k=50,
+                                         top_p=0.95,
+                                         temperature=0.7, do_sample=True,
+                                         )
     _ = model.generate(**dummy_input, generation_config=generation_config)
     print("Model warmed up successfully!")
 
@@ -41,7 +38,8 @@ def load_model(model_name: str = "Qwen/Qwen-1_8B-Chat"):
     if model_name in MODEL_CACHE:
         return MODEL_CACHE[model_name]
 
-    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(
+        model_name, trust_remote_code=True)
     model_path = f"./model_local_cache/{model_name}"
 
     if os.path.exists(model_path):
@@ -104,8 +102,9 @@ def main():
 
     st.header("Lets chat... 🐻‍❄️")
     selected_model = st.selectbox(
-        "Please select a model", ("Qwen/Qwen-1_8B-Chat", "microsoft/Phi-3-mini-4k-instruct")
-    )
+        "Please select a model",
+        ("Qwen/Qwen-1_8B-Chat",
+         "microsoft/Phi-3-mini-4k-instruct"))
 
     if st.button("Load Model"):
         with st.spinner("Loading..."):
@@ -118,7 +117,9 @@ def main():
             ):
                 st.success("Model loaded successfully!")
                 st.info("Warming up the model...")
-                warmup_model(st.session_state.model, st.session_state.tokenizer)
+                warmup_model(
+                    st.session_state.model,
+                    st.session_state.tokenizer)
                 st.success("Model warmed up and ready to use!")
             else:
                 st.error("Failed to load the model.")
@@ -133,10 +134,11 @@ def main():
             else:
                 with st.spinner("Running....🐎"):
                     streamer = get_response(
-                        st.session_state.model, st.session_state.tokenizer, input_text
-                    )
+                        st.session_state.model,
+                        st.session_state.tokenizer,
+                        input_text)
                     st.write_stream(streamer)
 
 
 if __name__ == "__main__":
-   main()
+    main()

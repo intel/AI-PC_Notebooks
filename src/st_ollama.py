@@ -15,14 +15,14 @@ if chat_input := st.chat_input("Hi, How are you?"):
 
         def generate_response(user_input):
             response = ollama.chat(model=model, messages=[
-            {
-                'role': 'user',
-                'content': chat_input,
-            },
+                {
+                    'role': 'user',
+                    'content': chat_input,
+                },
             ],
-            stream=True,
-            )    
+                stream=True,
+            )
             for res in response:
-                yield res["message"]["content"]            
+                yield res["message"]["content"]
         st.write_stream(generate_response(chat_input))
         del model
