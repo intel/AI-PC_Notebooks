@@ -20,7 +20,7 @@ models = [model["name"] for model in ollama.list()["models"]]
 model = st.selectbox("Choose a model from the list", models)
 
 # Input text to load the document
-url_path = st.text_input("Enter the URL to load for RAG:",value="https://www.gutenberg.org/files/1727/1727-h/1727-h.htm", key="url_path")
+url_path = st.text_input("Enter the URL to load for RAG:", key="url_path")
 
 # Select embedding type
 embedding_type = st.selectbox("Please select an embedding type", ("ollama", "huggingface", "nomic", "fastembed"),index=1)
