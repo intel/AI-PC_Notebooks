@@ -30,7 +30,7 @@ To set up your AIPC for running with Intel iGPUs, follow these essential steps:
 
 ## Installation
 
-ALl the installation steps are provided in the notebooks and will walkyou through the process
+All the installation steps are provided in the notebooks and will walk you through the process
 
 ## Usage
 
