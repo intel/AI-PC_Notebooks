@@ -96,7 +96,7 @@ jobs:
         template: report
         token: ${{ secrets.KEKACZMA_SEC_TOKEN }}
     - name: GitHub Upload Release Artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: report
         path: |
