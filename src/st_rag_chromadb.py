@@ -52,6 +52,7 @@ question = st.text_input(
     key="question"
 )
 
+
 def load_document(url: str) -> List[Dict[str, Any]]:
     """
     Load the document from the given URL.
@@ -70,6 +71,7 @@ def load_document(url: str) -> List[Dict[str, Any]]:
     except Exception as e:
         st.error(f"Error loading document: {e}")
         return []
+
 
 def split_document(text: str, chunk_size: int = 3000, overlap: int = 200) -> List[Dict[str, Any]]:
     """
@@ -92,6 +94,7 @@ def split_document(text: str, chunk_size: int = 3000, overlap: int = 200) -> Lis
     except Exception as e:
         st.error(f"Error splitting document: {e}")
         return []
+
 
 def initialize_embedding_fn(
         embedding_type: str = "huggingface",
@@ -125,6 +128,7 @@ def initialize_embedding_fn(
     except Exception as e:
         st.error(f"Error initializing embedding function: {e}")
         return None
+
 
 def get_or_create_embeddings(
         document_url: str,
@@ -160,6 +164,7 @@ def get_or_create_embeddings(
     except Exception as e:
         st.error(f"Error creating embeddings: {e}")
         return None
+
 
 def handle_user_interaction(vector_store: Any, chat_model: Any) -> str:
     """
@@ -210,6 +215,7 @@ def handle_user_interaction(vector_store: Any, chat_model: Any) -> str:
         st.error(f"Error handling user interaction: {e}")
         return "Error generating response."
 
+
 def getfinalresponse(document_url: str, embedding_type: str, chat_model: str) -> str:
     """
     Main function to load the document, initialize the embeddings, create the vector database, and invoke the model.
@@ -226,16 +232,17 @@ def getfinalresponse(document_url: str, embedding_type: str, chat_model: str) ->
         embedding_fn = initialize_embedding_fn(embedding_type)
         if embedding_fn is None:
             return "Error initializing embedding function."
-        
+
         vector_store = get_or_create_embeddings(document_url, embedding_fn)
         if vector_store is None:
             return "Error creating vector store."
-        
+
         chat_model_instance = llms.Ollama(base_url=OLLAMA_BASE_URL, model=chat_model)
         return handle_user_interaction(vector_store, chat_model_instance)
     except Exception as e:
         st.error(f"Error in getfinalresponse: {e}")
         return "Error generating final response."
+
 
 submit = st.button("Generate")
 

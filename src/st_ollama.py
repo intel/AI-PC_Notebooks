@@ -4,6 +4,7 @@ from typing import List, Generator
 
 st.title("Let's Chat....🐼")
 
+
 def fetch_model_list() -> List[str]:
     """
     Fetch the list of models from ollama and validate it.
@@ -21,6 +22,7 @@ def fetch_model_list() -> List[str]:
     except Exception as e:
         st.error(f"Error fetching models: {e}")
         return []
+
 
 def generate_response(user_input: str, model: str) -> Generator[str, None, None]:
     """
@@ -45,6 +47,7 @@ def generate_response(user_input: str, model: str) -> Generator[str, None, None]
     except Exception as e:
         st.error(f"Error generating response: {e}")
         yield "Error generating response."
+
 
 # Load ollama models
 model_list = fetch_model_list()

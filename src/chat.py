@@ -11,6 +11,7 @@ os.environ["BIGDL_LLM_XMX_DISABLED"] = "1"
 
 MODEL_CACHE = {}
 
+
 def save_model_thread(model, model_path: str) -> None:
     """
     Save the model to the specified path in a separate thread.
@@ -24,6 +25,7 @@ def save_model_thread(model, model_path: str) -> None:
         print(f"Model saved to {model_path}")
     except Exception as e:
         print(f"Error saving model: {e}")
+
 
 def warmup_model(model, tokenizer) -> None:
     """
@@ -53,6 +55,7 @@ def warmup_model(model, tokenizer) -> None:
     except Exception as e:
         print(f"Error warming up model: {e}")
 
+
 def load_model(model_name: str = "Qwen/Qwen-1_8B-Chat") -> Tuple:
     """
     Load the specified model and tokenizer.
@@ -67,7 +70,8 @@ def load_model(model_name: str = "Qwen/Qwen-1_8B-Chat") -> Tuple:
         return MODEL_CACHE[model_name]
 
     try:
-        tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+        tokenizer = AutoTokenizer.from_pretrained(
+            model_name, trust_remote_code=True)
         model_path = f"./model_local_cache/{model_name}"
 
         if os.path.exists(model_path):
@@ -92,6 +96,7 @@ def load_model(model_name: str = "Qwen/Qwen-1_8B-Chat") -> Tuple:
     except Exception as e:
         print(f"Error loading model: {e}")
         return None, None
+
 
 def get_response(model, tokenizer, input_text: str) -> TextIteratorStreamer:
     """
@@ -136,6 +141,7 @@ def get_response(model, tokenizer, input_text: str) -> TextIteratorStreamer:
     except Exception as e:
         print(f"Error generating response: {e}")
         return None
+
 
 def main() -> None:
     """
@@ -189,6 +195,7 @@ def main() -> None:
                         st.write_stream(streamer)
                     else:
                         st.error("Failed to generate response.")
+
 
 if __name__ == "__main__":
     main()
