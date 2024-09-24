@@ -94,7 +94,7 @@ jobs:
       uses: rsdmike/github-security-report-action@v3.0.4
       with:
         template: report
-        token: ${{ secrets.KEKACZMA_SEC_TOKEN }}
+        token: ${{ secrets.AI_PC_NOTEBOOKS_TOKEN }}
     - name: GitHub Upload Release Artifacts
       uses: actions/upload-artifact@v4
       with:
