@@ -161,8 +161,10 @@ submit = st.button("Generate")
 
 # generate response
 if submit:
-    document_url = url_path
-    chat_model = model
-
-    with st.spinner("Loading document....🐎"):
-        st.write(getfinalresponse(document_url, embedding_type, chat_model))
+    if not url_path.strip():
+        st.error("Please enter a valid URL.")
+    elif not question.strip():
+        st.error("Please enter a valid question.")
+    else:
+        with st.spinner("Loading document....🐎"):
+            st.write(getfinalresponse(url_path, embedding_type, model))
