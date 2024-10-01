@@ -4,8 +4,13 @@ import streamlit as st
 # Set the title of the Streamlit app
 st.title("Let's Chat....🐼")
 
-# Function to load Ollama models
 def load_models():
+    """
+    Load the list of available Ollama models.
+
+    Returns:
+        list: A list of model names if successful, otherwise an empty list.
+    """
     try:
         model_list = [model["name"] for model in ollama.list()["models"]]
         return model_list
@@ -13,8 +18,17 @@ def load_models():
         st.error(f"Error loading models: {e}")
         return []
 
-# Function to generate response from Ollama
 def generate_response(user_input, model):
+    """
+    Generate a response from the selected Ollama model based on user input.
+
+    Args:
+        user_input (str): The input text from the user.
+        model (str): The name of the selected model.
+
+    Yields:
+        str: The generated response content.
+    """
     try:
         response = ollama.chat(
             model=model,
