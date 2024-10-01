@@ -37,15 +37,15 @@ else:
 question = st.text_input("Enter the question:", value="What's the content of the image?", key="question")
 
 def getfinalresponse(input_text):
-    """
-    Generate a response based on the input text and image.
+    
+    """ Generate a response based on the input text and image.
 
     Args:
         input_text (str): The input text or question from the user.
 
     Yields:
-        str: The generated response content word by word.
-    """
+        str: The generated response content word by word. """
+    
     try:
         # Create a temporary file if an image is uploaded
         if img_file_buffer is not None:
@@ -54,7 +54,7 @@ def getfinalresponse(input_text):
                 file_path = tmp_file.name
 
             def image_to_base64_data_uri():
-                """
+                """ 
                 Convert the uploaded image to a base64 data URI.
 
                 Returns:
