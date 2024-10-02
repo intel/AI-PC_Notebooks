@@ -10,6 +10,7 @@ os.environ["BIGDL_LLM_XMX_DISABLED"] = "1"
 
 MODEL_CACHE = {}
 
+
 def save_model_thread(model, model_path):
     """
     Save the model to the specified path in a separate thread.
@@ -20,6 +21,7 @@ def save_model_thread(model, model_path):
     """
     model.save_low_bit(model_path)
     print(f"Model saved to {model_path}")
+
 
 def warmup_model(model, tokenizer):
     """
@@ -43,6 +45,7 @@ def warmup_model(model, tokenizer):
                                          )
     _ = model.generate(**dummy_input, generation_config=generation_config)
     print("Model warmed up successfully!")
+
 
 def load_model(model_name: str = "Qwen/Qwen-1_8B-Chat"):
     """
@@ -86,6 +89,7 @@ def load_model(model_name: str = "Qwen/Qwen-1_8B-Chat"):
         print(f"Failed to load model: {e}")
         return None, None
 
+
 def get_response(model, tokenizer, input_text: str):
     """
     Generate a response from the model based on the input text.
@@ -126,6 +130,7 @@ def get_response(model, tokenizer, input_text: str):
         thread.start()
     return streamer
 
+
 def main():
     """
     Main function to run the Streamlit app.
@@ -145,8 +150,7 @@ def main():
         if st.button("Load Model"):
             with st.spinner("Loading..."):
                 st.session_state.model, st.session_state.tokenizer = load_model(
-                    model_name=selected_model
-                )
+                    model_name=selected_model)
                 if (
                     st.session_state.model is not None
                     and st.session_state.tokenizer is not None
@@ -176,6 +180,7 @@ def main():
                         st.write_stream(streamer)
     except Exception as e:
         st.error(f"An error occurred: {e}")
+
 
 if __name__ == "__main__":
     main()

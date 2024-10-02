@@ -4,6 +4,7 @@ import streamlit as st
 # Set the title of the Streamlit app
 st.title("Let's Chat....🐼")
 
+
 def load_models():
     """
     Load the list of available Ollama models.
@@ -17,6 +18,7 @@ def load_models():
     except Exception as e:
         st.error(f"Error loading models: {e}")
         return []
+
 
 def generate_response(user_input, model):
     """
@@ -44,6 +46,7 @@ def generate_response(user_input, model):
             yield res["message"]["content"]
     except Exception as e:
         st.error(f"Error generating response: {e}")
+
 
 # Load Ollama models
 model_list = load_models()

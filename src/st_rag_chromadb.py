@@ -35,6 +35,7 @@ question = st.text_input(
     value="What is this about",
     key="question")
 
+
 def load_document(url):
     """
     Load the document from the specified URL.
@@ -49,6 +50,7 @@ def load_document(url):
     st.markdown(''' :green[Loading document from URL...] ''')
     loader = document_loaders.WebBaseLoader(url)
     return loader.load()
+
 
 def split_document(text, chunk_size=3000, overlap=200):
     """
@@ -67,6 +69,7 @@ def split_document(text, chunk_size=3000, overlap=200):
     text_splitter_instance = text_splitter.RecursiveCharacterTextSplitter(
         chunk_size=chunk_size, chunk_overlap=overlap)
     return text_splitter_instance.split_documents(text)
+
 
 def initialize_embedding_fn(
         embedding_type="huggingface",
@@ -96,6 +99,7 @@ def initialize_embedding_fn(
         return FastEmbedEmbeddings(threads=16)
     else:
         raise ValueError(f"Unsupported embedding type: {embedding_type}")
+
 
 def get_or_create_embeddings(
         document_url,
@@ -200,13 +204,13 @@ def getfinalresponse(document_url, embedding_type, chat_model):
         st.error(f"An error occurred: {e}")
         return None
 
-submit = st.button("Generate")
+    submit = st.button("Generate")
 
-if submit:
-    if not url_path.strip():
-        st.error("Please enter a valid URL.")
-    elif not question.strip():
-        st.error("Please enter a valid question.")
+    if submit:
+        if not url_path.strip():
+            st.error("Please enter a valid URL.")
+        elif not question.strip():
+            st.error("Please enter a valid question.")
     else:
         with st.spinner("Loading document....🐎"):
             st.write(getfinalresponse(url_path, embedding_type, model))
