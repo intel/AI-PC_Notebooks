@@ -7,7 +7,7 @@ import tempfile
 from PIL import Image
 import base64
 
-# Create a StreamliVisual-language assistantt app that displays the response word by word
+# Create a Streamlit app that displays the response word by word
 st.header("Visual-language assistant with SYCL 🐻‍❄️")
 
 # Dropdown to select a model
@@ -21,8 +21,7 @@ selected_model = st.selectbox(
 img_file_buffer = st.file_uploader('Upload a PNG image', type=["jpg", "png", "gif"])
 
 # Input for image URL
-# Input for image URL
-url = st.text_input("Enter the URL of the Image:",value="Enter the URL of the Image", key="url_path")
+url = st.text_input("Enter the URL of the Image:", value="Enter the URL of the Image", key="url_path")
 
 # Display the uploaded image or the image from the URL
 if img_file_buffer is not None:
@@ -34,11 +33,19 @@ if img_file_buffer is not None:
 else:
     st.error("Please provide an image URL or upload an image.")
 
-
 # Input prompt for the question
 question = st.text_input("Enter the question:", value="What's the content of the image?", key="question")
 
 def getfinalresponse(input_text):
+    
+    """ Generate a response based on the input text and image.
+
+    Args:
+        input_text (str): The input text or question from the user.
+
+    Yields:
+        str: The generated response content word by word. """
+    
     try:
         # Create a temporary file if an image is uploaded
         if img_file_buffer is not None:
@@ -46,10 +53,16 @@ def getfinalresponse(input_text):
                 tmp_file.write(img_file_buffer.getvalue())
                 file_path = tmp_file.name
 
-            def image_to_base64_data_uri():               
+            def image_to_base64_data_uri():
+                """ 
+                Convert the uploaded image to a base64 data URI.
+
+                Returns:
+                    str: The base64 data URI of the image.
+                """
                 with open(file_path, "rb") as img_file:
                     base64_data = base64.b64encode(img_file.read()).decode('utf-8')
-                    return f"data:image/jpg;base64,{base64_data}"      
+                    return f"data:image/jpg;base64,{base64_data}"
 
         # Initialize the chat handler with a pre-trained model
         chat_handler = MoondreamChatHandler.from_pretrained(
