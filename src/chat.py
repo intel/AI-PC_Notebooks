@@ -139,7 +139,7 @@ def main():
         if "model" not in st.session_state:
             st.session_state.model = None
         if "tokenizer" not in st.session_state:
-            st.session_state.tokenizer is None
+            st.session_state.tokenizer = None
 
         st.header("Lets chat... 🐻‍❄️")
         selected_model = st.selectbox(
