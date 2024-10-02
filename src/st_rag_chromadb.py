@@ -130,8 +130,9 @@ def get_or_create_embeddings(
     )
     vector_store.persist()
     print(f"Embedding time: {time.time() - start_time:.2f} seconds")
-    st.write(f"Embedding time: {time.time() - start_time:.2f seconds")
+    st.write(f"Embedding time: {time.time() - start_time:.2f} seconds")
     return vector_store
+
 
 def handle_user_interaction(vector_store, chat_model):
     """
@@ -178,6 +179,7 @@ def handle_user_interaction(vector_store, chat_model):
     st.write(f"Response time: {time.time() - start_time:.2f} seconds")
 
     return answer['result']
+
 
 def getfinalresponse(document_url, embedding_type, chat_model):
     """
