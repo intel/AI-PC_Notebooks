@@ -206,13 +206,14 @@ def getfinalresponse(document_url, embedding_type, chat_model):
         st.error(f"An error occurred: {e}")
         return None
 
-    submit = st.button("Generate")
 
-    if submit:
-        if not url_path.strip():
-            st.error("Please enter a valid URL.")
-        elif not question.strip():
-            st.error("Please enter a valid question.")
+submit = st.button("Generate")
+
+if submit:
+    if not url_path.strip():
+        st.error("Please enter a valid URL.")
+    elif not question.strip():
+        st.error("Please enter a valid question.")
     else:
         with st.spinner("Loading document....🐎"):
             st.write(getfinalresponse(url_path, embedding_type, model))
