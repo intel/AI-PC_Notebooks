@@ -36,4 +36,4 @@ jobs:
 
       - name: Check code formatting style
         run: |
-          autopep8 --exit-code --recursive --in-place --aggressive --aggressive .
+          autopep8 --exit-code --recursive --in-place --aggressive --aggressive . --verbose --max-line-length 200

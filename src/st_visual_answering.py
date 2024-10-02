@@ -12,32 +12,42 @@ st.header("Visual-language assistant with SYCL 🐻‍❄️")
 
 # Dropdown to select a model
 selected_model = st.selectbox(
-    "Please select a model", 
-    ("vikhyatk/moondream2", "microsoft/Phi-3-vision-128k-instruct", "Intel/llava-gemma-2b"), 
-    index=0
-)
+    "Please select a model",
+    ("vikhyatk/moondream2",
+     "microsoft/Phi-3-vision-128k-instruct",
+     "Intel/llava-gemma-2b"),
+    index=0)
 
 # File uploader for image
-img_file_buffer = st.file_uploader('Upload a PNG image', type=["jpg", "png", "gif"])
+img_file_buffer = st.file_uploader(
+    'Upload a PNG image', type=[
+        "jpg", "png", "gif"])
 
 # Input for image URL
-url = st.text_input("Enter the URL of the Image:", value="Enter the URL of the Image", key="url_path")
+url = st.text_input(
+    "Enter the URL of the Image:",
+    value="Enter the URL of the Image",
+    key="url_path")
 
 # Display the uploaded image or the image from the URL
 if img_file_buffer is not None:
     try:
         image = Image.open(img_file_buffer)
-        st.image(image, width=600)  # Manually Adjust the width of the image as per requirement
+        # Manually Adjust the width of the image as per requirement
+        st.image(image, width=600)
     except Exception as e:
         st.error(f"Error loading image: {e}")
 else:
     st.error("Please provide an image URL or upload an image.")
 
 # Input prompt for the question
-question = st.text_input("Enter the question:", value="What's the content of the image?", key="question")
+question = st.text_input(
+    "Enter the question:",
+    value="What's the content of the image?",
+    key="question")
+
 
 def getfinalresponse(input_text):
-    
     """ Generate a response based on the input text and image.
 
     Args:
@@ -45,7 +55,7 @@ def getfinalresponse(input_text):
 
     Yields:
         str: The generated response content word by word. """
-    
+
     try:
         # Create a temporary file if an image is uploaded
         if img_file_buffer is not None:
@@ -54,14 +64,15 @@ def getfinalresponse(input_text):
                 file_path = tmp_file.name
 
             def image_to_base64_data_uri():
-                """ 
+                """
                 Convert the uploaded image to a base64 data URI.
 
                 Returns:
                     str: The base64 data URI of the image.
                 """
                 with open(file_path, "rb") as img_file:
-                    base64_data = base64.b64encode(img_file.read()).decode('utf-8')
+                    base64_data = base64.b64encode(
+                        img_file.read()).decode('utf-8')
                     return f"data:image/jpg;base64,{base64_data}"
 
         # Initialize the chat handler with a pre-trained model
@@ -70,7 +81,8 @@ def getfinalresponse(input_text):
             filename="*mmproj*",
         )
 
-        # Initialize the Llama model with the pre-trained model and chat handler
+        # Initialize the Llama model with the pre-trained model and chat
+        # handler
         llm = Llama.from_pretrained(
             repo_id=selected_model,
             filename="*text-model*",
@@ -118,6 +130,7 @@ def getfinalresponse(input_text):
                     yield token + " "
     except Exception as e:
         st.error(f"An error occurred: {e}")
+
 
 # Generate response when the button is clicked
 if st.button("Generate"):

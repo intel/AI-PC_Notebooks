@@ -35,6 +35,7 @@ question = st.text_input(
     value="What is this about",
     key="question")
 
+
 def load_document(url):
     """
     Load the document from the specified URL.
@@ -49,6 +50,7 @@ def load_document(url):
     st.markdown(''' :green[Loading document from URL...] ''')
     loader = document_loaders.WebBaseLoader(url)
     return loader.load()
+
 
 def split_document(text, chunk_size=3000, overlap=200):
     """
@@ -67,6 +69,7 @@ def split_document(text, chunk_size=3000, overlap=200):
     text_splitter_instance = text_splitter.RecursiveCharacterTextSplitter(
         chunk_size=chunk_size, chunk_overlap=overlap)
     return text_splitter_instance.split_documents(text)
+
 
 def initialize_embedding_fn(
         embedding_type="huggingface",
@@ -97,6 +100,7 @@ def initialize_embedding_fn(
     else:
         raise ValueError(f"Unsupported embedding type: {embedding_type}")
 
+
 def get_or_create_embeddings(
         document_url,
         embedding_fn,
@@ -126,8 +130,9 @@ def get_or_create_embeddings(
     )
     vector_store.persist()
     print(f"Embedding time: {time.time() - start_time:.2f} seconds")
-    st.write(f"Embedding time: {time.time() - start_time:.2f seconds")
+    st.write(f"Embedding time: {time.time() - start_time:.2f} seconds")
     return vector_store
+
 
 def handle_user_interaction(vector_store, chat_model):
     """
@@ -175,6 +180,7 @@ def handle_user_interaction(vector_store, chat_model):
 
     return answer['result']
 
+
 def getfinalresponse(document_url, embedding_type, chat_model):
     """
     Main function to load the document, initialize the embeddings, create the vector database, and invoke the model.
@@ -199,6 +205,7 @@ def getfinalresponse(document_url, embedding_type, chat_model):
     except Exception as e:
         st.error(f"An error occurred: {e}")
         return None
+
 
 submit = st.button("Generate")
 
