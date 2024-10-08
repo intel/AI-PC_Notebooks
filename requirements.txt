@@ -4,7 +4,7 @@ tiktoken==0.7.0
 llama-cpp-python==0.3.1
 langchain-community==0.3.1
 transformers-stream-generator==0.0.5
-streamlit==1.38.0
+streamlit==1.39.0
 numexpr==2.10.1
 numpy==2.1.1
 huggingface-hub==0.25.1
