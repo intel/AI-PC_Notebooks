@@ -7,7 +7,7 @@ transformers-stream-generator==0.0.5
 streamlit==1.39.0
 numexpr==2.10.1
 numpy==2.1.2
-huggingface-hub==0.25.1
+huggingface-hub==0.26.1
 wikipedia==1.4.0
 ollama==0.3.3
 --extra-index-url https://pytorch-extension.intel.com/release-whl/stable/xpu/us/
