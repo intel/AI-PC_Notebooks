@@ -1,5 +1,5 @@
 langchain==0.3.2
-transformers==4.45.1
+transformers==4.45.2
 tiktoken==0.8.0
 llama-cpp-python==0.3.1
 langchain-community==0.3.1
