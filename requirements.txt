@@ -2,7 +2,7 @@ langchain==0.3.4
 transformers==4.45.2
 tiktoken==0.8.0
 llama-cpp-python==0.3.1
-langchain-community==0.3.1
+langchain-community==0.3.3
 transformers-stream-generator==0.0.5
 streamlit==1.39.0
 numexpr==2.10.1
