@@ -1,0 +1,62 @@
+[project]
+channels = ["conda-forge", "pytorch"]
+name = "AI-Upscaling-Sample"
+platforms = ["win-64", "linux-64"]
+
+[tasks]
+execute = "jupyter nbconvert --execute --to notebook --inplace --debug AI_Upscaling_With_NPU.ipynb"
+
+[dependencies]
+python = ">=3.12.6,<4"
+jupyter = ">=1.1.1,<2"
+ipykernel = ">=6.29.5,<7"
+ipywidgets = ">=8.1.5,<9"
+plotly = ">=5.24.1,<6"
+tqdm = ">=4.66.5,<5"
+pytorch = { version = ">=2.4.1,<3", channel = "pytorch" }
+nncf = ">=2.13.0,<3"
+torchinfo = ">=1.8.0,<2"
+safetensors = ">=0.4.5,<0.5"
+ffmpeg = ">=7.1.0,<8"
+ffmpeg-python = ">=0.2.0,<0.3"
+
+[pypi-dependencies]
+openvino = ">=2024.4.0, <2025"
+opencv-python = ">=4.10.0.84, <5"
+
+[feature.dev.tasks]
+_lint = "ruff check . --fix"
+_format = "ruff format ."
+_lint_check = "ruff check ."
+_format_check = "ruff format . --check"
+_bandit_check = "bandit -r . --exclude ./.pixi"
+
+_lint_notebook = "nbqa 'ruff check  --fix' AI_Upscaling_With_NPU.ipynb"
+_format_notebook = "nbqa 'ruff format' AI_Upscaling_With_NPU.ipynb"
+_lint_notebook_check = "nbqa 'ruff check' AI_Upscaling_With_NPU.ipynb"
+_format_notebook_check = "nbqa 'ruff format --check' AI_Upscaling_With_NPU.ipynb"
+_bandit_notebook_check = "bandit AI_Upscaling_With_NPU.ipynb"
+
+lint_and_format = { depends-on = [
+    "_lint",
+    "_format",
+    "_lint_notebook",
+    "_format_notebook",
+] }
+validate = { depends-on = [
+    "_lint_check",
+    "_format_check",
+    "_bandit_check",
+    "_lint_notebook_check",
+    "_format_notebook_check",
+    "_bandit_notebook_check",
+    "execute",
+] }
+
+[feature.dev.dependencies]
+ruff = "*"
+nbqa = ">=1.9.0,<2"
+bandit = ">=1.7.10,<2"
+
+[environments]
+dev = { features = ["dev"] }

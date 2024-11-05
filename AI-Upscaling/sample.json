@@ -1,0 +1,43 @@
+{
+    "name": "AI Upscaling with Intel® AI Boost NPU",
+    "categories": [],
+    "description": "This notebook guides you through the process of running AI Upscaling models on Intel® AI Boost NPU using OpenVINO.",
+    "builder": [
+        "cli"
+    ],
+    "languages": [
+        {
+            "python": {}
+        }
+    ],
+    "os": [
+        "windows",
+        "linux"
+    ],
+    "targetDevice": [
+        "CPU"
+    ],
+    "cpuInstructionSets": [
+        "AVX512",
+        "AMX"
+    ],
+    "ciTests": {
+        "windows": [
+            {
+                "id": "run ai upscaling models",
+                "steps": [
+                    ".\\tools\\run_pixi.ps1 run validate"
+                ]
+            }
+        ],
+        "linux": [
+            {
+                "id": "run ai upscaling models",
+                "steps": [
+                    "./tools/run_pixi.sh run validate"
+                ]
+            }
+        ]
+    },
+    "expertise": "Code Optimization"
+}

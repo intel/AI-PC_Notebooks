@@ -1,0 +1,10 @@
+nc_workspace
+cache
+__pycache__
+input.jpg
+benchmark_video.mp4
+upscaled_video.mp4
+.ruff_cache
+environment.yml
+.pixi
+*.egg-info
