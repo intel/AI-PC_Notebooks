@@ -74,6 +74,10 @@ To export the dependencies to a `conda` environment, run the following command:
 ./tools/run_pixi.sh project export conda-environment --platform linux-64 environment.yml
 ```
 
+### Cleaning Up
+
+To clean up the created environment, delete the `.pixi` directory located in the root of the sample.
+
 ## Example Output
 
 Users should be able to see a side-by-side comparison of the original and upscaled images and videos as well as the performance comparison between running the model on the CPU and NPU.
