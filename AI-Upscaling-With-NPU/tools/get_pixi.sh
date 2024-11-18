@@ -11,7 +11,7 @@ pixi_binary="${PIXI_HOME}/bin/pixi"
 
 if [[ ! -x "$pixi_binary" ]]; then
     echo "Installing Pixi..."
-    curl -fsSL https://pixi.sh/install.sh | bash
+    ./install_pixi.sh
 fi
 
 export pixi="$pixi_binary"

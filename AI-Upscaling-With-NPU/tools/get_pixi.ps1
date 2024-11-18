@@ -10,18 +10,10 @@ $env:PIXI_VERSION = $PIXI_VERSION
 $env:PIXI_CACHE_DIR = "$PIXI_HOME"
 
 $pixiBinary = Join-Path $PIXI_HOME "bin\pixi.exe"
-$tempFile = $null
 
-try {
-    if (-not (Test-Path $pixiBinary)) {
-        $tempFile = [System.IO.Path]::GetTempFileName() + ".ps1"
-        Invoke-WebRequest -Uri 'https://pixi.sh/install.ps1' -OutFile $tempFile
-        & $tempFile -PixiVersion $env:PIXI_VERSION -PixiHome $env:PIXI_HOME -NoPathUpdate
-    }
-} finally {
-    if ($tempFile -and (Test-Path $tempFile)) {
-        Remove-Item $tempFile -Force
-    }
+if (-not (Test-Path $pixiBinary)) {
+    $installPixiScript = Join-Path $scriptDir "install_pixi.ps1"
+    & $installPixiScript -PixiVersion $env:PIXI_VERSION -PixiHome $env:PIXI_HOME -NoPathUpdate
 }
 
 $script:pixi = $pixiBinary
