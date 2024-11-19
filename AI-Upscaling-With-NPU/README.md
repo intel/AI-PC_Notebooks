@@ -22,26 +22,6 @@ The sample starts by loading in the `BSRGAN` model and then converts and compile
 | Hardware      | Intel® Core™ Ultra                                                                                                                                                                               |
 | Software      | [Intel® NPU Driver for Windows](https://www.intel.com/content/www/us/en/download/794734/intel-npu-driver-windows.html) or [Linux NPU Driver](https://github.com/intel/linux-npu-driver/releases) |
 
-## Run the `AI Upscaling with Intel® AI Boost NPU` Sample
-
-The command for both Windows and Linux will install the necessary dependencies and run the sample. The sample uses [`pixi`](https://github.com/prefix-dev/pixi/) for environment and task management.
-
-### Windows
-
-To run the sample, run the following command:
-
-```powershell
-.\tools\run_pixi.ps1 run execute
-```
-
-### Linux
-
-To run the sample, run the following command:
-
-```bash
-./tools/run_pixi.sh run execute
-```
-
 ## Key Implementation Details
 
 This sample tutorial contains one Jupyter Notebook.
@@ -50,33 +30,59 @@ This sample tutorial contains one Jupyter Notebook.
 | :---------------------------- | :----------------------------------------------------------------------------------------- |
 | `AI_Upscaling_With_NPU.ipynb` | Gain performance boost during inference using Intel® AI Boost Neural Processing Unit (NPU) |
 
-### Exporting Dependencies to Conda Environment
+## Run the `AI Upscaling with Intel® AI Boost NPU` Sample
 
-**Exporting dependencies to a `conda` environment not necessary for running the sample.**
+### Using `pixi`
 
-[`pixi`](https://github.com/prefix-dev/pixi/) relies on the [`conda-forge`](https://conda-forge.org/) project and [`PyPi`](https://pypi.org/) for package retrieval. This means that you can use `pixi` to export dependencies to a `conda` environment and use this exact environment in other projects.
+The command for both Windows and Linux will install the necessary dependencies and run the sample. The sample uses [pixi](https://github.com/prefix-dev/pixi/) for environment and task management. The sample will automatically install `pixi` as well. The `pixi` executable, cache, and packages will be contained within the `.pixi` directory located in the root of the sample.
 
-#### Windows
+To run the sample, run the following command:
 
-To export the dependencies to a `conda` environment, run the following command:
-
-```powershell
-.\tools\run_pixi.ps1 project export conda-environment --platform win-64 environment.yml
-```
-
-This will create a `conda` environment file named `environment.yml`.
-
-#### Linux
-
-To export the dependencies to a `conda` environment, run the following command:
-
-```text
-./tools/run_pixi.sh project export conda-environment --platform linux-64 environment.yml
-```
-
-### Cleaning Up
+**Windows:** `.\tools\run_pixi.ps1 run execute`
+**Linux:** `./tools/run_pixi.sh run execute`
 
 To clean up the created environment, delete the `.pixi` directory located in the root of the sample.
+
+### Using `conda`
+
+The sample can also be run using `conda`. The following steps will guide you through the process.
+
+1. Export the dependencies to a `conda` environment
+
+**Windows:** `.\tools\run_pixi.ps1 project export conda-environment --platform win-64 environment.yml`
+**Linux:** `./tools/run_pixi.sh project export conda-environment --platform linux-64 environment.yml`
+
+2. Remove `.pixi` folder
+
+**Windows:** `rm -r -fo .pixi`
+**Linux:** `rm -rf .pixi`
+
+3. Create the `conda` environment using the exported `environment.yml` file
+
+`conda env create -f environment.yml`
+
+4. Activate the `conda` environment
+
+`conda activate default`
+
+5. Execute the Jupyter Notebook via command line
+
+`jupyter nbconvert --execute --to notebook --inplace --debug AI_Upscaling_With_NPU.ipynb`
+
+To clean up the created environment, run `conda env remove -n default`
+
+## Opening Jupyter Notebook
+
+If you choose to run the Jupyter Notebook directly, you can open the Jupyter Notebook by running the following command:
+
+### Using `pixi`
+
+**Windows:** `.\tools\run_pixi.ps1 run jupyter notebook AI_Upscaling_With_NPU.ipynb`
+**Linux:** `./tools/run_pixi.sh run jupyter notebook AI_Upscaling_With_NPU.ipynb`
+
+### Using `conda`
+
+`jupyter notebook AI_Upscaling_With_NPU.ipynb`
 
 ## Example Output
 
