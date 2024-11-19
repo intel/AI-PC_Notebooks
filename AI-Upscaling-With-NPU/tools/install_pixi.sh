@@ -4,7 +4,13 @@ set -euo pipefail
 
 __wrap__() {
 
-VERSION="${PIXI_VERSION:-latest}"
+# If PIXI_VERSION doesn't exist, raise an error
+if [ -z "${PIXI_VERSION:-}" ]; then
+  echo "error: PIXI_VERSION is not set"
+  exit 1
+fi
+
+VERSION="${PIXI_VERSION}"
 PIXI_HOME="${PIXI_HOME:-$HOME/.pixi}"
 PIXI_HOME="${PIXI_HOME/#\~/$HOME}"
 BIN_DIR="$PIXI_HOME/bin"
@@ -33,11 +39,7 @@ if [[ $(uname -o) == "Msys" ]]; then
   EXTENSION="zip"
 fi
 
-if [[ $VERSION == "latest" ]]; then
-  DOWNLOAD_URL="https://github.com/${REPO}/releases/latest/download/${BINARY}.${EXTENSION}"
-else
-  DOWNLOAD_URL="https://github.com/${REPO}/releases/download/${VERSION}/${BINARY}.${EXTENSION}"
-fi
+DOWNLOAD_URL="https://github.com/${REPO}/releases/download/${VERSION}/${BINARY}.${EXTENSION}"
 
 printf "This script will automatically download and install Pixi (${VERSION}) for you.\nGetting it from this url: $DOWNLOAD_URL\n"
 

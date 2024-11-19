@@ -5,7 +5,7 @@
     This script is used to install Pixi on Windows from the command line.
 .PARAMETER PixiVersion
     Specifies the version of Pixi to install.
-    The default value is 'latest'. You can also specify it by setting the
+    This is a mandatory parameter. You can also specify it by setting the
     environment variable 'PIXI_VERSION'.
 .PARAMETER PixiHome
     Specifies Pixi's home directory.
@@ -21,7 +21,9 @@
     Version: v0.34.0
 #>
 param (
-    [string] $PixiVersion = 'latest',
+    [Parameter(Mandatory=$true)]
+    [string] $PixiVersion,
+
     [string] $PixiHome = "$Env:USERPROFILE\.pixi",
     [switch] $NoPathUpdate
 )
@@ -98,9 +100,7 @@ function Get-Env {
     $EnvRegisterKey.GetValue($name, $null, $RegistryValueOption)
 }
 
-if ($Env:PIXI_VERSION) {
-    $PixiVersion = $Env:PIXI_VERSION
-}
+$PixiVersion = $Env:PIXI_VERSION
 
 if ($Env:PIXI_HOME) {
     $PixiHome = $Env:PIXI_HOME
@@ -117,11 +117,7 @@ $PLATFORM = 'pc-windows-msvc'
 
 $BINARY = "pixi-$ARCH-$PLATFORM"
 
-if ($PixiVersion -eq 'latest') {
-    $DOWNLOAD_URL = "https://github.com/$REPO/releases/latest/download/$BINARY.zip"
-} else {
-    $DOWNLOAD_URL = "https://github.com/$REPO/releases/download/$PixiVersion/$BINARY.zip"
-}
+$DOWNLOAD_URL = "https://github.com/$REPO/releases/download/$PixiVersion/$BINARY.zip"
 
 $BinDir = Join-Path $PixiHome 'bin'
 
