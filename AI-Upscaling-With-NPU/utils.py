@@ -206,6 +206,13 @@ def write_all_frames(frames: list[np.ndarray], output_video: cv2.VideoWriter) ->
 
 
 def download_file(url, output_file):
+    """downloads a file from the given URL and saves it to the specified output file
+
+    Args:
+        url: The URL of the file to download
+        output_file: The path where the downloaded file will be saved
+    """
+
     try:
         response = requests.get(url, stream=True, timeout=10)
         response.raise_for_status()
@@ -221,6 +228,13 @@ def download_file(url, output_file):
 
 
 def resize_video(input_path, scale=2):
+    """resizes a video by a given scale factor
+
+    Args:
+        input_path: The file path to the input video
+        scale: The factor by which to scale the video resolution. Default is 2
+    """
+
     try:
         original_video_info = ffmpeg.probe(input_path)
         original_video_height = original_video_info["streams"][0]["height"]
