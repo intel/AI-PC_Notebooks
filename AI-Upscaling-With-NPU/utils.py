@@ -228,11 +228,14 @@ def download_file(url, output_file):
 
 
 def resize_video(input_path, scale=2):
-    """resizes a video by a given scale factor
+    """reduces the resolution of the given video by a given scale factor, \
+        so the output video will have a resolution that is 1 / scale times \
+        the original resolution
 
     Args:
         input_path: The file path to the input video
-        scale: The factor by which to scale the video resolution. Default is 2
+        scale: The factor by which to scale the video resolution. \
+            The output size will be original_size / scale. Default value is 2
     """
 
     try:
