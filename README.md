@@ -14,11 +14,11 @@ Welcome to the Gen AI Playground, a collection of notebooks designed to showcase
 
 
 ## Requirements
-
 To set up your AIPC for running with Intel iGPUs, follow these essential steps:
 1. Update Intel GPU Drivers: Ensure your system has the latest Intel GPU drivers
 2. Install Visual Studio 2022 Community edition with C++: Visual Studio 2022, along with the “Desktop Development with C++” workload, is required.
 3. Install conda-forge: conda-forge will manage your Python environments and dependencies efficiently, providing a clean, minimal base for your Python setup
+4. Install CMake
 
 ### Hardware
 - Intel® Core™ Ultra Processor - Windows 11
