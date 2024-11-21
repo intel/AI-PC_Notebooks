@@ -1,0 +1,13 @@
+langchain
+langchain-community
+langchain-core
+langchain-huggingface
+huggingface-hub
+sentence-transformers
+chromadb
+PyPDF2
+transformers
+beautifulsoup4
+pypdf
+torch
+langchain-chroma

@@ -6,10 +6,11 @@ Welcome to the Gen AI Playground, a collection of notebooks designed to showcase
 
 ## Table of Contents
 
-- [Intel LLM Library for Pytorch on AI PC](./ipex_llm_pytorch_gpu.ipynb)
-- [ Llamacpp on Intel GPUs on AI PC](./ipex_llm_gpu.ipynb)
-- [ Ollama on AI PC](./ipex_llm_ollama_gpu.ipynb)
-- [Implementing RAG on AI PC](./llm-rag.ipynb)
+- [Intel LLM Library for Pytorch on AI PC](./3_llm_pytorch_gpu.ipynb)
+- [ Llamacpp on Intel GPUs on AI PC](./6_llm_sycl_gpu.ipynb)
+- [ Ollama on AI PC](./2_ollama_gpu.ipynb)
+- [Implementing RAG on AI PC](./4_llm-rag.ipynbb)
+- [Implementing RAG using Lanchain](./9_rag_lanchain.ipynb)
 
 
 ## Requirements
