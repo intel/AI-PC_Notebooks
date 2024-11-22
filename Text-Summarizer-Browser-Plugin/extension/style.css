@@ -1,0 +1,171 @@
+body {
+    width: 300px;
+    height: 300px;
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    color: #333;
+    margin: 20px;
+}
+.container {
+    max-width: 280px;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+}
+h1 {
+    text-align: center;
+    color: #3437e3;
+    font-size: 24px;
+}
+.step {
+    margin-bottom: 10px;
+}
+.step.hidden {
+    display: none;
+}
+
+.step label {
+    font-weight: bold;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color:#3437e3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/* Spinner styles for the button */
+.button-spinner {
+    border: 3px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 3px solid #3498db;
+    width: 15px;
+    height: 15px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.button:hover {
+    background-color: #3437e3;
+}
+.input-group {
+    margin-bottom: 15px;
+}
+.input-group input[type="text"], .input-group select {
+    width: calc(100% - 22px);
+    padding: 8px;  
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.progress {
+    display: none;
+    margin-top: 15px;
+}
+.progress-bar {
+    width: 50%;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.progress-bar div {
+    height: 500%;
+    background-color:  #53c5cd;
+    width: 0;
+}
+/* styling the tab*/
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #dad8f041;
+  }
+ 
+  /* Style the buttons inside the tab */
+  .tab button {
+    display: inline-block;
+    padding: 10px 41.5px;
+    background-color:#3437e3;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: #fff;
+    height:100%
+  }
+ 
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: lightskyblue;
+  }
+ 
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color:lightskyblue;
+  }
+ 
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
+  }
+
+  .model {
+    font-weight: bold;
+  }
+ 
+    
+    /* for query */
+    /* Styles for qna-container */
+.qna-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.query-box {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.query-box input[type="text"] {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.query-box button {
+  padding: 8px 15px;
+  background-color: #3437e3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.answer-container {
+  margin-top: 15px;
+  border: 1px solid #b02828;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+}
