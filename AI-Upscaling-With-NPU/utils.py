@@ -112,7 +112,7 @@ def time_execution(stmt, globals=None, number=1, repeat=5):
         repeat (int, optional): Number of times to repeat the timing. Defaults to 5.
 
     Returns:
-        _type_: _description_
+        tuple: Tuple of execution times (List[float]), mean (float), and standard deviation (float)
     """
     try:
         times = timeit.repeat(stmt, globals=globals, number=number, repeat=repeat)
