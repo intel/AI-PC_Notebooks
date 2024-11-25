@@ -1,4 +1,4 @@
-langchain==0.3.7
+langchain==0.3.8
 transformers==4.46.2
 tiktoken==0.8.0
 llama-cpp-python==0.3.2
