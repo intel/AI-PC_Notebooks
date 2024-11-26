@@ -14,7 +14,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-This file is sourced from https://github.com/cszn/BSRGAN/blob/main/main_test_bsrgan.py 
+This file is sourced from https://github.com/cszn/BSRGAN/blob/main/main_test_bsrgan.py
 and https://github.com/cszn/BSRGAN/blob/main/utils/utils_image.py and has been modified.
 All functions now include error handling and docstrings.
 load_model now uses safetensors to load the model checkpoint.
