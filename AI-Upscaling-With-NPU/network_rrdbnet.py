@@ -1,5 +1,5 @@
 """
-Copyright 2022 Kai Zhang (cskaizhang@gmail.com, https://cszn.github.io/). 
+Copyright 2022 Kai Zhang (cskaizhang@gmail.com, https://cszn.github.io/).
 All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
