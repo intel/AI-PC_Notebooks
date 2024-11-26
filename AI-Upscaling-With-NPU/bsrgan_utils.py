@@ -14,12 +14,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-This file is sourced from https://github.com/cszn/BSRGAN/blob/main/models/network_rrdbnet.py
-and has been modified. All functions now include error handling and docstrings.
+This file is sourced from https://github.com/cszn/BSRGAN/blob/main/main_test_bsrgan.py 
+and https://github.com/cszn/BSRGAN/blob/main/utils/utils_image.py and has been modified.
+All functions now include error handling and docstrings.
 load_model now uses safetensors to load the model checkpoint.
 """
 
 import cv2
+
 import numpy as np
 import torch
 from safetensors.torch import load_file
@@ -42,7 +44,7 @@ def load_model(model, model_path):
         raise e
 
 
-# Sourced from https://github.com/cszn/BSRGAN/blob/main/main_test_bsrgan.py
+# Sourced from https://github.com/cszn/BSRGAN/blob/main/utils/utils_image.py
 def imread_uint(path, n_channels=3):
     """reads an image from a path
 
@@ -70,7 +72,7 @@ def imread_uint(path, n_channels=3):
         raise e
 
 
-# Sourced from https://github.com/cszn/BSRGAN/blob/main/main_test_bsrgan.py
+# Sourced from https://github.com/cszn/BSRGAN/blob/main/utils/utils_image.py
 def uint2tensor4(img):
     """converts a numpy array to a PyTorch tensor
 
@@ -95,7 +97,7 @@ def uint2tensor4(img):
         raise e
 
 
-# Modified from https://github.com/cszn/BSRGAN/blob/main/main_test_bsrgan.py
+# Modified from https://github.com/cszn/BSRGAN/blob/main/utils/utils_image.py
 def tensor2uint(img):
     """converts a 4D tensor back into 3D numpy array (HxWxC)
 
