@@ -1,0 +1,11 @@
+{
+    "manifest_version": 3,
+    "name": "Text Summarizer",
+    "version": "2.0",
+    "description": "Summarizes any webpage, when URL pasted, or any uploaded PDF using LLMs",
+    "permissions": ["activeTab"],
+    "host_permissions": ["http://localhost:5000/"],
+    "action": {
+      "default_popup": "popup.html"
+    }
+  }
