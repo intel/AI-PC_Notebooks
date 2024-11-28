@@ -54,7 +54,7 @@ def process_url():
         return Response(stream_output(pre_process_url_data, [url]), content_type='text/event-stream')
 
     except Exception:
-        return jsonify({'message': f'Error while processomg URL'}), 400
+        return jsonify({'message': f'Error while processing URL'}), 400
 
 
 @app.route('/upload-pdf', methods=['POST'])
