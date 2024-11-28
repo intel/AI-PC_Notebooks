@@ -24,7 +24,7 @@ def select_model():
         current_model = load_llm(model_id)
         return jsonify({'message': f'Model {model_id} loaded successfully.'}), 200
 
-    except Exception as e:
+    except Exception:
         return jsonify({'message': 'Failed to load model \n'}), 500
 
 
@@ -36,8 +36,8 @@ def stream_output(process_function, *args):
         for chunk in process_function(*args):
             if chunk is not None:
                 yield f"{chunk}"
-    except Exception as e:
-        yield f"Error while streaming output: {e}"
+    except Exception:
+        yield f"Error while streaming output"
 
 
 @app.route('/process-url', methods=['POST'])
@@ -53,10 +53,8 @@ def process_url():
         chromadb.api.client.SharedSystemClient.clear_system_cache()
         return Response(stream_output(pre_process_url_data, [url]), content_type='text/event-stream')
 
-    except Exception as e:
-        print(f"Error while processing URL: {e}")
+    except Exception:
         return jsonify({'message': f'Error while processomg URL'}), 400
-        raise e
 
 
 @app.route('/upload-pdf', methods=['POST'])
@@ -76,9 +74,8 @@ def upload_pdf():
             chromadb.api.client.SharedSystemClient.clear_system_cache()
             return Response(stream_output(pre_process_pdf_data, temp_pdf_path), content_type='text/event-stream')
 
-        except Exception as e:
+        except Exception:
             return jsonify({"message": "Error processing PDF"}), 500
-            raise e
 
     else:
         return jsonify({"message": "Invalid file type. Please upload a PDF."}), 400
@@ -96,9 +93,8 @@ def pdf_process_query():
             return jsonify({'message': 'no query provided'}), 400
         response_message = str(qa_on_pdf_summarized_text(query))
         return jsonify({'message': response_message}), 200
-    except Exception as e:
+    except Exception:
         return jsonify({'message': 'Error while PDF QA Bot'}), 500
-        raise e
 
 
 @app.route('/your_query_url', methods=['POST'])
@@ -113,9 +109,8 @@ def url_process_query():
             return jsonify({'message': 'no query provided'}), 400
         response_message = str(qa_on_url_summarized_text(query))
         return jsonify({'message': response_message}), 200
-    except Exception as e:
+    except Exception:
         return jsonify({'message': 'Error while URL QA Bot'}), 500
-        raise e
 
 
 if __name__ == '__main__':
