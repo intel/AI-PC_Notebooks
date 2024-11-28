@@ -31,16 +31,19 @@ def pre_processing(loader):
     """
     try:
         page_data = loader.load()
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=20)
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=1000, chunk_overlap=20)
         all_splits = text_splitter.split_documents(page_data)
-        embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
+        embeddings = HuggingFaceEmbeddings(
+            model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
         global vectorstore
-        vectorstore = Chroma.from_documents(documents=all_splits, embedding=embeddings)
+        vectorstore = Chroma.from_documents(
+            documents=all_splits, embedding=embeddings)
         return vectorstore
     except Exception as e:
         print("Error while processing Webpage/PDF page content\n")
         raise e
-    
+
 
 def load_llm(model_id):
     """
@@ -54,20 +57,22 @@ def load_llm(model_id):
                 model_path = r"..\models\ov_llama_2"
             elif model_id == "Qwen 7B Instruct":
                 model_path = r"..\models\ov_qwen7b"
-            model = OVModelForCausalLM.from_pretrained(model_path, device='GPU')
+            model = OVModelForCausalLM.from_pretrained(
+                model_path, device='GPU')
             tokenizer = AutoTokenizer.from_pretrained(model_path)
             pipe = pipeline(
                 "text-generation",
-                model = model,
-                tokenizer = tokenizer,
-                max_new_tokens = 4096,
-                device = model.device
+                model=model,
+                tokenizer=tokenizer,
+                max_new_tokens=4096,
+                device=model.device
             )
             global llm_model
             llm_model = HuggingFacePipeline(pipeline=pipe)
             return llm_model
         except Exception as e:
-            print("Failed to load the model. Please check whether the model_path is correct.")
+            print(
+                "Failed to load the model. Please check whether the model_path is correct.")
             raise e
 
 
@@ -81,25 +86,27 @@ def pre_process_url_data(urls):
     try:
         loader = WebBaseLoader(urls)
         global summ_vectorstore
-        summ_vectorstore = pre_processing(loader)   # Common Helper function for processing data.
+        # Common Helper function for processing data.
+        summ_vectorstore = pre_processing(loader)
         prompt = PromptTemplate(
-            template = summary_template,
-            input_variables = ["context", "question"]
+            template=summary_template,
+            input_variables=["context", "question"]
         )
-    
+
         qa_chain = RetrievalQA.from_chain_type(
-            llm = llm_model,
-            retriever = summ_vectorstore.as_retriever(),
-            chain_type = "stuff",
-            chain_type_kwargs = {"prompt": prompt},
-            return_source_documents = False,
+            llm=llm_model,
+            retriever=summ_vectorstore.as_retriever(),
+            chain_type="stuff",
+            chain_type_kwargs={"prompt": prompt},
+            return_source_documents=False,
         )
-        
+
         question = "Please summarize the entire book in one paragraph of 100 words"
         summary = qa_chain(question)
         response = summary['result']
         summary_start = response.find("CONCISE SUMMARY:")
-        concise_summary = response[summary_start + len("CONCISE SUMMARY:"):].strip()
+        concise_summary = response[summary_start +
+                                   len("CONCISE SUMMARY:"):].strip()
         return concise_summary
     except Exception as e:
         print("Failed to summarize webpage \n")
@@ -114,21 +121,22 @@ def qa_on_url_summarized_text(query):
     """
     try:
         prompt = PromptTemplate(
-            template = query_template,
-            input_variables = ["context", "question"]
+            template=query_template,
+            input_variables=["context", "question"]
         )
         reduce_chain = RetrievalQA.from_chain_type(
-            llm = llm_model,
-            retriever = summ_vectorstore.as_retriever(),
-            chain_type = "stuff",
-            chain_type_kwargs = {"prompt": prompt},
-            return_source_documents = False
+            llm=llm_model,
+            retriever=summ_vectorstore.as_retriever(),
+            chain_type="stuff",
+            chain_type_kwargs={"prompt": prompt},
+            return_source_documents=False
         )
         summary = reduce_chain({'query': query})
         summ_vectorstore.delete
         response = summary['result']
         summary_start = response.find("Helpful Answer:")
-        concise_summary = response[summary_start + len("Helpful Answer:"):].strip()
+        concise_summary = response[summary_start +
+                                   len("Helpful Answer:"):].strip()
         return concise_summary
     except Exception as e:
         print("Error in Webpage Summarizer QA BoT")
@@ -146,24 +154,25 @@ def pre_process_pdf_data(pdf):
         loader = PyPDFLoader(pdf, extract_images=False)
         global pdf_vectorstore
         pdf_vectorstore = pre_processing(loader)
-    
+
         prompt = PromptTemplate(
-            template = summary_template,
-            input_variables = ["context", "question"]
+            template=summary_template,
+            input_variables=["context", "question"]
         )
         reduce_chain = RetrievalQA.from_chain_type(
-            llm = llm_model,
-            retriever = pdf_vectorstore.as_retriever(),
-            chain_type = "stuff",
-            chain_type_kwargs = {"prompt": prompt},
-            return_source_documents = False,
+            llm=llm_model,
+            retriever=pdf_vectorstore.as_retriever(),
+            chain_type="stuff",
+            chain_type_kwargs={"prompt": prompt},
+            return_source_documents=False,
         )
         question = "Please summarize the entire book in 100 words."
         summary = reduce_chain({'query': question})
 
         response = summary['result']
         summary_start = response.find("CONCISE SUMMARY:")
-        concise_summary = response[summary_start + len("CONCISE SUMMARY:"):].strip()
+        concise_summary = response[summary_start +
+                                   len("CONCISE SUMMARY:"):].strip()
         return concise_summary
     except Exception as e:
         print("Failed to summarize PDF \n")
@@ -179,19 +188,20 @@ def qa_on_pdf_summarized_text(query):
     try:
         prompt = PromptTemplate(
             template=query_template,
-            input_variables = ["context", "question"]
+            input_variables=["context", "question"]
         )
         reduce_chain = RetrievalQA.from_chain_type(
-            llm = llm_model,
-            retriever = pdf_vectorstore.as_retriever(),
-            chain_type = "stuff",
-            chain_type_kwargs = {"prompt": prompt},
-            return_source_documents = False
+            llm=llm_model,
+            retriever=pdf_vectorstore.as_retriever(),
+            chain_type="stuff",
+            chain_type_kwargs={"prompt": prompt},
+            return_source_documents=False
         )
         summary = reduce_chain({'query': query})
         response = summary['result']
         summary_start = response.find("Helpful Answer:")
-        concise_summary = response[summary_start + len("Helpful Answer:"):].strip()
+        concise_summary = response[summary_start +
+                                   len("Helpful Answer:"):].strip()
         return concise_summary
     except Exception as e:
         print("Error in PDF Summarizer QA BoT")
