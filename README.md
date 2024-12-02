@@ -12,7 +12,7 @@ Welcome to the Gen AI Playground, a collection of notebooks designed to showcase
 - [Implementing RAG on AI PC](./4_llm-rag.ipynbb)
 - [Implementing RAG using Lanchain](./9_rag_lanchain.ipynb)
 - [Text Summarizer Browser Plugin on AI PC](./Text-Summarizer-Browser-Plugin/TextSummarizerPlugin.ipynb)
-
+- [AI Travel Agent](./AI-Travel-Agent/AI_Travel_Agent.ipynb)
 
 ## Requirements
 To set up your AIPC for running with Intel iGPUs, follow these essential steps:
