@@ -2,10 +2,10 @@ name: Bandit Scan
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "bbela/tag_version" ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ "main" ]
+    branches: [ "bbela/tag_version" ]
   schedule:
     - cron: '40 5 * * 5'
   workflow_dispatch:

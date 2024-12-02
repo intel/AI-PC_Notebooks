@@ -6,7 +6,7 @@ on:
   schedule:
     - cron: '45 22 * * 5'
   push:
-    branches: [ "main" ]
+    branches: [ "bbela/tag_version" ]
 
 permissions: read-all
 
