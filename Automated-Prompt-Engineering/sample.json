@@ -1,0 +1,43 @@
+{
+    "name": "Automated Prompt Engineering on Intel® AI PC",
+    "categories": [],
+    "description": "This notebook guides you through the process of optimizing prompts on AI PC using DSPy.",
+    "builder": [
+        "cli"
+    ],
+    "languages": [
+        {
+            "python": {}
+        }
+    ],
+    "os": [
+        "windows",
+        "linux"
+    ],
+    "targetDevice": [
+        "GPU"
+    ],
+    "cpuInstructionSets": [
+        "AVX512",
+        "AMX"
+    ],
+    "ciTests": {
+        "windows": [
+            {
+                "id": "run automated prompt engineering",
+                "steps": [
+                    ".\\tools\\run_pixi.cmd run validate"
+                ]
+            }
+        ],
+        "linux": [
+            {
+                "id": "run automated prompt engineering",
+                "steps": [
+                    "./tools/run_pixi.sh run validate"
+                ]
+            }
+        ]
+    },
+    "expertise": "Concepts and Functionality"
+}
