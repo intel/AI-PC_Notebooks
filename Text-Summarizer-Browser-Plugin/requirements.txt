@@ -1,0 +1,11 @@
+flask==3.1.0
+flask_cors==5.0.0
+langchain==0.3.7
+langchain-community==0.3.8
+sentence-transformers==3.3.1
+langchain_chroma==0.1.4
+Bs4==0.0.2
+trl==0.12.0
+pypdf==5.1.0
+optimum[openvino,nncf]
+ipykernel==6.29.5
