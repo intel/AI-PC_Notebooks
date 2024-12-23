@@ -6,4 +6,4 @@ langchain==0.3.12
 langchain-community==0.3.10
 streamlit==1.41.1
 huggingface_hub==0.26.5
-pydantic==2.10.3
+pydantic==2.10.4
