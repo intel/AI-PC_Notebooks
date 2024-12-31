@@ -1,4 +1,4 @@
-# Text summarizer browser Plugin
+# Text summarizer browser Plugin Sample
 
 A plug-and-play Chrome extension seamlessly integrates with Flask and leverages an OpenVINO backend for fast and efficient summarization of webpages (via URL) and PDFs (via upload). Powered by LangChain tools, it handles advanced tasks like text splitting and vectorstore management to deliver accurate and meaningful summaries.
 
@@ -14,10 +14,32 @@ The directory contains:
 
 ## Prerequisites
 
+| Optimized for | Description                                                                                                                                                                                      |
+| :------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| OS            | Windows 11 64-bit (22H2, 23H2) and newer or Ubuntu* 22.04 64-bit (with Linux kernel 6.6+) and newer                                                                                              |
+| Hardware      | Intel® Core™ Ultra Processors                                                                                                                                                                              |
+| Software      | 1. [Intel® GPU drivers from Intel® Arc™ & Iris® Xe Graphics for Windows](https://www.intel.com/content/www/us/en/download/785597/intel-arc-iris-xe-graphics-windows.html) or [Linux GPU drivers](https://dgpu-docs.intel.com/driver/client/overview.html) <br> 2. NPU(Optional): [Intel® NPU Driver for Windows](https://www.intel.com/content/www/us/en/download/794734/intel-npu-driver-windows.html) or [Linux NPU Driver](https://github.com/intel/linux-npu-driver/releases)  |
+| Browsers      | [Google Chrome](https://www.google.com/chrome/dr/download/?brand=MRUS&ds_kid=43700079286123654&gad_source=1&gclid=EAIaIQobChMI0J3fybvSigMV5dXCBB1TDARCEAAYASAAEgL36_D_BwE&gclsrc=aw.ds) & [Microsoft Edge](https://www.microsoft.com/en-us/edge/download?form=MA13FJ)
+
+
 1. **Install the below necessary tools/packages:**
-   - [Git on Windows](https://git-scm.com/downloads)
-   - [Miniforge](https://conda-forge.org/download/)
-   - [Google Chrome for Windows](https://www.google.com/chrome/?brand=OZZY&ds_kid=43700080794581137&gad_source=1&gclid=Cj0KCQiAoae5BhCNARIsADVLzZdwNNB5nIyjZ8OyCzg6h_cCig1eoaYquUSEd7BAigJhTzps1Kxuop8aArE6EALw_wcB&gclsrc=aw.ds)
+   - Git
+       - [Git for Windows](https://git-scm.com/downloads)
+       - Git for Linux
+         ```bash
+         sudo apt update && sudo apt install git
+         ```
+   - Miniforge
+       - [Miniforge for Windows](https://conda-forge.org/download/)
+       - Miniforge for Linux
+         Download, install the Miniconda using the below commands. 
+            ```bash
+            wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+            bash Miniforge3-$(uname)-$(uname -m).sh
+            cd </move/to/miniforge3/bin/folder> 
+            ./conda init 
+            ```
+            Replace </move/to/miniforge3/bin/folder> with your actual Miniforge bin folder path and run the cd command to go there. Initialize the conda environment and restart the terminal.
 
 
 2. **Create a Conda Environment:**
