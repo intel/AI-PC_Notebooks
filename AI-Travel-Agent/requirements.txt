@@ -3,7 +3,8 @@ google-search-results==2.4.2
 ipykernel==6.29.5
 jupyter==1.1.1
 langchain==0.3.13
-langchain-community==0.3.13
+langchain-community==0.3.12
 streamlit==1.41.1
 huggingface_hub==0.27.0
-pydantic==2.10.4
+pydantic==2.9.2
+wikipedia==1.4.0
