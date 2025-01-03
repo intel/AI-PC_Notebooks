@@ -25,7 +25,7 @@ The directory contains:
 1. **Install the below necessary tools/packages:**
    - Git
        - [Git for Windows](https://git-scm.com/downloads)
-       - Git for Linux\
+       - Git for Linux
          - For Debian/Ubuntu-based systems:
          ```bash
          sudo apt update && sudo apt -y install git
