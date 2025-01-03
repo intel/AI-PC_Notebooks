@@ -26,8 +26,13 @@ The directory contains:
    - Git
        - [Git for Windows](https://git-scm.com/downloads)
        - Git for Linux
+         For Debian/Ubuntu-based systems:
          ```bash
-         sudo apt update && sudo apt install git
+         sudo apt update && sudo apt -y install git
+         ```
+         For RHEL/CentOS-based systems:
+         ```bash
+         sudo dnf update && sudo dnf -y install git
          ```
    - Miniforge
        - [Miniforge for Windows](https://conda-forge.org/download/)
@@ -36,11 +41,14 @@ The directory contains:
             ```bash
             wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
             bash Miniforge3-$(uname)-$(uname -m).sh
-            cd </move/to/miniforge3/bin/folder> 
-            ./conda init 
             ```
             Replace </move/to/miniforge3/bin/folder> with your actual Miniforge bin folder path and run the cd command to go there. Initialize the conda environment and restart the terminal.
-
+            ```bash
+            cd </move/to/miniforge3/bin/folder> 
+            ```
+            ```bash
+            ./conda init 
+            ```
 
 2. **Create a Conda Environment:**
    - Run the command:
@@ -50,7 +58,6 @@ The directory contains:
      ```bash
      conda activate summarizer_plugin
      ```
-
 
 3. **Install Dependencies:**
    - Execute:
@@ -114,7 +121,7 @@ Once the environment is created, we can run the plugin via [TextSummarizerPlugin
    Pin your extension to the toolbar to quickly access your extension.
    
    <img width="389" alt="image" src="https://github.com/user-attachments/assets/1bcc1571-b2d6-4ece-a3ca-c435733436b5">
-   
+  
 
 
 
@@ -123,7 +130,7 @@ Once the environment is created, we can run the plugin via [TextSummarizerPlugin
 1. **Start the Flask Server:**
    - Navigate to the backend folder:
      ```
-     cd Text-Summarizer/backend
+     cd ../backend
      python server.py
      ```
 
