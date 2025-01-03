@@ -25,12 +25,12 @@ The directory contains:
 1. **Install the below necessary tools/packages:**
    - Git
        - [Git for Windows](https://git-scm.com/downloads)
-       - Git for Linux
-         For Debian/Ubuntu-based systems:
+       - Git for Linux\
+         - For Debian/Ubuntu-based systems:
          ```bash
          sudo apt update && sudo apt -y install git
          ```
-         For RHEL/CentOS-based systems:
+         - For RHEL/CentOS-based systems:
          ```bash
          sudo dnf update && sudo dnf -y install git
          ```
