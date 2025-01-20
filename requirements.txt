@@ -6,7 +6,7 @@ langchain-community==0.3.14
 transformers-stream-generator==0.0.5
 streamlit==1.41.1
 numexpr==2.10.2
-numpy==2.2.1
+numpy==2.2.2
 huggingface-hub==0.27.1
 wikipedia==1.4.0
 ollama==0.4.6
