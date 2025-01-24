@@ -7,5 +7,5 @@ langchain_chroma==0.2.0
 Bs4==0.0.2
 trl==0.13.0
 pypdf==5.1.0
-optimum[openvino,nncf]==1.23.3
+optimum[openvino,nncf]
 ipykernel==6.29.5
