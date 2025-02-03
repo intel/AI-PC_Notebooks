@@ -7,7 +7,7 @@ sentence-transformers==3.4.0
 chromadb==0.6.3
 PyPDF2==5.1.0
 transformers==4.48.1
-beautifulsoup4==4.12.3
+beautifulsoup4==4.13.0
 pypdf==5.1.0
 torch==2.5.1+cxx11.abi
 langchain-chroma==0.2.0
