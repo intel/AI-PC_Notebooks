@@ -9,5 +9,5 @@ PyPDF2==5.1.0
 transformers==4.48.1
 beautifulsoup4==4.13.0
 pypdf==5.1.0
-torch==2.5.1+cxx11.abi
+torch==2.6.0
 langchain-chroma==0.2.1
