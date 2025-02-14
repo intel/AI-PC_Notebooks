@@ -1,0 +1,74 @@
+[project]
+name = "ai-upscaling-with-npu"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "huggingface-hub>=0.28.1",
+    "ipykernel>=6.29.5",
+    "ipywidgets>=8.1.5",
+    "jupyter>=1.1.1",
+    "safetensors>=0.5.2",
+    "tqdm>=4.67.1",
+    "torch==2.5.*",
+    "openvino>=2025.0.0",
+    "opencv-python>=4.11.0.86",
+    "nncf>=2.15.0",
+    "torchinfo>=1.8.0",
+    "plotly>=6.0.0",
+    "ffmpeg-python>=0.2.0",
+]
+
+[dependency-groups]
+dev = [
+    "bandit>=1.8.2",
+    "nbqa>=1.9.1",
+    "pyproject-runner>=0.3.0",
+    "ruff>=0.9.6",
+]
+
+
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.ruff]
+# Allow lines to be as long as 120.
+line-length = 120
+extend-exclude = [".venv"]
+
+[tool.ruff.lint]
+preview = true
+extend-select = ["S", "ERA", "PD", "NPY", "E", "E501"]
+
+[tool.ruff.format]
+preview = true
+
+[tool.pyproject-runner.tasks]
+lint = "ruff check . --fix"
+format = "ruff format ."
+lint_check = "ruff check ."
+format_check = "ruff format . --check"
+bandit_check = "bandit -r . --exclude ./.venv"
+lint_notebook = "nbqa 'ruff check  --fix' AI_Upscaling_With_NPU.ipynb"
+format_notebook = "nbqa 'ruff format' AI_Upscaling_With_NPU.ipynb"
+lint_notebook_check = "nbqa 'ruff check' AI_Upscaling_With_NPU.ipynb"
+format_notebook_check = "nbqa 'ruff format --check' AI_Upscaling_With_NPU.ipynb"
+bandit_notebook_check = "bandit AI_Upscaling_With_NPU.ipynb"
+execute = "jupyter nbconvert --execute --to notebook --inplace --debug AI_Upscaling_With_NPU.ipynb"
+validate = {pre = [
+        "lint_check", 
+        "format_check", 
+        "bandit_check",
+        "lint_notebook_check", 
+        "format_notebook_check", 
+        "bandit_notebook_check"
+        ], post = ["execute"]}
