@@ -85,13 +85,7 @@ def uint2tensor4(img):
     try:
         if img.ndim == 2:
             img = np.expand_dims(img, axis=2)
-        return (
-            torch.from_numpy(np.ascontiguousarray(img))
-            .permute(2, 0, 1)
-            .float()
-            .div(255.0)
-            .unsqueeze(0)
-        )
+        return torch.from_numpy(np.ascontiguousarray(img)).permute(2, 0, 1).float().div(255.0).unsqueeze(0)
     except Exception as e:
         print("Error converting uint to tensor")
         raise e

@@ -1,6 +1,5 @@
 from tqdm.auto import tqdm
 import timeit
-import requests
 import os
 import cv2
 import numpy as np
@@ -112,28 +111,6 @@ def write_all_frames(frames: list[np.ndarray], output_video: cv2.VideoWriter) ->
         raise e
 
 
-def download_file(url, output_file):
-    """downloads a file from the given URL and saves it to the specified output file
-
-    Args:
-        url: The URL of the file to download
-        output_file: The path where the downloaded file will be saved
-    """
-
-    try:
-        response = requests.get(url, stream=True, timeout=10)
-        response.raise_for_status()
-        with open(output_file, "wb") as f:
-            for chunk in response.iter_content(chunk_size=8192):
-                if chunk:
-                    f.write(chunk)
-
-        print(f"File has been downloaded as {output_file}")
-
-    except requests.exceptions.RequestException as e:
-        print(f"Error downloading file: {e}")
-
-
 def resize_video(input_path, scale=2):
     """reduces the resolution of the given video by a given scale factor, \
         so the output video will have a resolution that is 1 / scale times \
@@ -155,9 +132,7 @@ def resize_video(input_path, scale=2):
 
         temp_output_path = "temp_resized_video.mp4"
 
-        ffmpeg.input(input_path).output(
-            temp_output_path, vf=f"scale={new_width}:{new_height}"
-        ).overwrite_output().run()
+        ffmpeg.input(input_path).output(temp_output_path, vf=f"scale={new_width}:{new_height}").overwrite_output().run()
 
         # After processing, replace the original file with the resized one
         os.replace(temp_output_path, input_path)
