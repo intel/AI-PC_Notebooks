@@ -5,7 +5,7 @@ llama-cpp-python==0.3.7
 langchain-community==0.3.16
 transformers-stream-generator==0.0.5
 streamlit==1.42.0
-numpy==2.2.2
+numpy==2.2.3
 huggingface-hub==0.28.1
 wikipedia==1.4.0
 ollama==0.4.7
