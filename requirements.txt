@@ -1,12 +1,12 @@
-langchain==0.3.14
+langchain==0.3.18
 transformers==4.48.3
-tiktoken==0.8.0
+tiktoken==0.9.0
 llama-cpp-python==0.3.7
 langchain-community==0.3.16
 transformers-stream-generator==0.0.5
 streamlit==1.42.0
-numpy==2.2.2
-huggingface-hub==0.27.1
+numpy==2.2.3
+huggingface-hub==0.28.1
 wikipedia==1.4.0
 ollama==0.4.7
 --extra-index-url https://pytorch-extension.intel.com/release-whl/stable/xpu/us/

@@ -1,9 +1,9 @@
 flask==3.1.0
 flask_cors==5.0.0
-langchain==0.3.14
+langchain==0.3.18
 langchain-community==0.3.16
 sentence-transformers==3.4.1
-langchain_chroma==0.2.1
+langchain_chroma==0.2.2
 pypdf==5.3.0
 optimum[openvino,nncf]
 ipykernel==6.29.5
