@@ -20,7 +20,7 @@ def save_model_thread(model, model_path):
         model_path (str): The path where the model will be saved.
     """
     model.save_low_bit(model_path)
-    print(f"Model saved to {model_path}")
+    print(f"Model ssaved to {model_path}")
 
 
 def warmup_model(model, tokenizer):
