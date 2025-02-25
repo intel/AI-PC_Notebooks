@@ -1,0 +1,93 @@
+[project]
+authors = ["Gururaj Deshpande <gururaj.deshpande@intel.com>"]
+channels = ["pytorch", "conda-forge"]
+name = "Automated Prompt Engineering"
+platforms = ["linux-64", "win-64"]
+
+[target.win-64.activation.env]
+DSP_CACHEDIR = ".pixi/cache/dspy"
+DSP_NOTEBOOK_CACHEDIR = ".pixi/cache/dspy_notebook"
+DSPY_CACHEDIR = ".pixi/cache/dspy"
+DSPY_NOTEBOOK_CACHEDIR = ".pixi/cache/dspy_notebook"
+HF_HOME = ".pixi/cache/huggingface"
+TOKENIZERS_PARALLELISM = "false"
+CMAKE_GENERATOR = "Ninja"
+CMAKE_C_COMPILER = "cl"
+CMAKE_CXX_COMPILER = "icx"
+CXX = "icx"
+CC = "cl"
+CMAKE_ARGS = "-DGGML_SYCL=ON -DGGML_SYCL_F16=ON -DCMAKE_CXX_COMPILER=icx -DCMAKE_C_COMPILER=cl"
+
+[target.linux-64.activation.env]
+DSP_CACHEDIR = ".pixi/cache/dspy"
+DSP_NOTEBOOK_CACHEDIR = ".pixi/cache/dspy_notebook"
+DSPY_CACHEDIR = ".pixi/cache/dspy"
+DSPY_NOTEBOOK_CACHEDIR = ".pixi/cache/dspy_notebook"
+HF_HOME = ".pixi/cache/huggingface"
+TOKENIZERS_PARALLELISM = "false"
+KMP_DUPLICATE_LIB_OK = "TRUE"
+CMAKE_ARGS = "-DGGML_SYCL=on -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icpx -DGGML_SYCL_F16=ON"
+
+[target.linux-64.activation]
+scripts = ["/opt/intel/oneapi/setvars.sh"]
+
+[tasks]
+execute = "jupyter nbconvert --execute --to notebook --inplace --debug AutomatedPromptEngineering.ipynb"
+
+[dependencies]
+python = "3.11.*"
+jupyter = ">=1.1.1,<2"
+ipykernel = ">=6.29.5,<7"
+ipywidgets = ">=8.1.5,<9"
+tqdm = ">=4.66.5,<5"
+python-dateutil = ">=2.9.0,<3"
+pandas = ">=2.2.3,<3"
+transformers = ">=4.46.0,<5"
+huggingface_hub = ">=0.26.1,<0.27"
+numpy = "<2"
+fsspec = "2023.9.2.*"
+
+[pypi-dependencies]
+dspy = ">=2.5.0, <2.5.10"
+llama-cpp-python = ">=0.3.1, <0.4"
+datasets = "*"
+
+[target.linux-64.dependencies]
+cmake = ">=3.30.5,<4"
+
+[feature.dev.tasks]
+_lint = "ruff check . --fix"
+_format = "ruff format ."
+_lint_check = "ruff check ."
+_format_check = "ruff format . --check"
+_bandit_check = "bandit -r . --exclude ./.pixi"
+
+_lint_notebook = "nbqa 'ruff check  --fix' AutomatedPromptEngineering.ipynb"
+_format_notebook = "nbqa 'ruff format' AutomatedPromptEngineering.ipynb"
+_lint_notebook_check = "nbqa 'ruff check' AutomatedPromptEngineering.ipynb"
+_format_notebook_check = "nbqa 'ruff format --check' AutomatedPromptEngineering.ipynb"
+_bandit_notebook_check = "bandit AutomatedPromptEngineering.ipynb"
+
+lint_and_format = { depends-on = [
+    "_lint",
+    "_format",
+    "_lint_notebook",
+    "_format_notebook",
+] }
+validate = { depends-on = [
+    "_lint_check",
+    "_format_check",
+    "_bandit_check",
+    "_lint_notebook_check",
+    "_format_notebook_check",
+    "_bandit_notebook_check",
+    "execute",
+] }
+
+[feature.dev.dependencies]
+ruff = "*"
+nbqa = ">=1.9.0,<2"
+bandit = ">=1.7.10,<2"
+
+[environments]
+dev = { features = ["dev"] }
