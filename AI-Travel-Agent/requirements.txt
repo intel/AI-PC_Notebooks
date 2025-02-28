@@ -3,7 +3,7 @@ ipykernel==6.29.5
 jupyter==1.1.1
 langchain==0.3.19
 langchain-community==0.3.16
-streamlit==1.42.0
+streamlit==1.42.2
 huggingface_hub==0.29.1
 pydantic==2.10.6
 wikipedia==1.4.0
