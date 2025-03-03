@@ -102,9 +102,7 @@ class ResidualDenseBlock_5C(nn.Module):
             self.lrelu = nn.LeakyReLU(negative_slope=0.2, inplace=True)
 
             # initialization
-            initialize_weights(
-                [self.conv1, self.conv2, self.conv3, self.conv4, self.conv5], 0.1
-            )
+            initialize_weights([self.conv1, self.conv2, self.conv3, self.conv4, self.conv5], 0.1)
         except Exception as e:
             print("Error initializing ResidualDenseBlock_5C")
             raise e
@@ -225,15 +223,11 @@ class RRDBNet(nn.Module):
             fea = fea + trunk
 
             up_size_1 = (fea.size(2) * 2, fea.size(3) * 2)
-            fea = self.lrelu(
-                self.upconv1(F.interpolate(fea, size=up_size_1, mode="nearest"))
-            )
+            fea = self.lrelu(self.upconv1(F.interpolate(fea, size=up_size_1, mode="nearest")))
 
             if self.sf == 4:
                 up_size_2 = (fea.size(2) * 2, fea.size(3) * 2)
-                fea = self.lrelu(
-                    self.upconv2(F.interpolate(fea, size=up_size_2, mode="nearest"))
-                )
+                fea = self.lrelu(self.upconv2(F.interpolate(fea, size=up_size_2, mode="nearest")))
 
             out = self.conv_last(self.lrelu(self.HRconv(fea)))
 
