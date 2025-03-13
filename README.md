@@ -5,14 +5,15 @@ Welcome to the Gen AI Playground, a collection of notebooks designed to showcase
 
 
 ## Table of Contents
-
-- [Intel LLM Library for Pytorch on AI PC](./3_llm_pytorch_gpu.ipynb)
-- [ Llamacpp on Intel GPUs on AI PC](./6_llm_sycl_gpu.ipynb)
-- [ Ollama on AI PC](./2_ollama_gpu.ipynb)
-- [Implementing RAG on AI PC](./4_llm-rag.ipynbb)
-- [Implementing RAG using Lanchain](./9_rag_lanchain.ipynb)
+- LLM
+    - [Intel LLM Library for Pytorch on AI PC](./LLM/03_llm_pytorch_gpu.ipynb)
+    - [ Llamacpp on Intel GPUs on AI PC](./LLM/06_llm_sycl_gpu.ipynb)
+    - [ Ollama on AI PC](./LLM/02_ollama_gpu.ipynb)
+    - [Implementing RAG on AI PC](./LLM/04_llm-rag.ipynbb)
+    - [Implementing RAG using Lanchain](./LLM/09_rag_langchain.ipynb)
 - [Text Summarizer Browser Plugin on AI PC](./Text-Summarizer-Browser-Plugin/TextSummarizerPlugin.ipynb)
 - [AI Travel Agent](./AI-Travel-Agent/AI_Travel_Agent.ipynb)
+- [AI-Upscaling-With-NPU](./AI-Upscaling-With-NPU/AI_Upscaling_With_NPU.ipynb)
 
 ## Requirements
 To set up your AIPC for running with Intel iGPUs, follow these essential steps:
