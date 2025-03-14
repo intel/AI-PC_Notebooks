@@ -32,57 +32,43 @@ This sample tutorial contains one Jupyter Notebook.
 
 ## Run the `AI Upscaling with Intel® AI Boost NPU` Sample
 
-### Using `pixi`
+### Using `uv`
 
-The command for both Windows and Linux will install the necessary dependencies and run the sample. The sample uses [pixi](https://github.com/prefix-dev/pixi/) for environment and task management. The sample will automatically install `pixi` as well. The `pixi` executable, cache, and packages will be contained within the `.pixi` directory located in the root of the sample.
+The sample uses [uv](https://docs.astral.sh/uv/) for environment management. Steps to install `uv` can be found [here](https://docs.astral.sh/uv/getting-started/installation/). 
 
-To run the sample, run the following command:
+1. Setup the environment
 
-**Windows:** `.\tools\run_pixi.ps1 run execute`
-**Linux:** `./tools/run_pixi.sh run execute`
+    ```bash
+    # ffmpeg OS binary
+    conda install ffmpeg
 
-To clean up the created environment, delete the `.pixi` directory located in the root of the sample.
+    # python dependencies
+    uv sync
+    ```
 
-### Using `conda`
-
-The sample can also be run using `conda`. The following steps will guide you through the process.
-
-1. Export the dependencies to a `conda` environment
-
-**Windows:** `.\tools\run_pixi.ps1 project export conda-environment --platform win-64 environment.yml`
-**Linux:** `./tools/run_pixi.sh project export conda-environment --platform linux-64 environment.yml`
-
-2. Remove `.pixi` folder
-
-**Windows:** `rm -r -fo .pixi`
-**Linux:** `rm -rf .pixi`
-
-3. Create the `conda` environment using the exported `environment.yml` file
-
-`conda env create -f environment.yml`
-
-4. Activate the `conda` environment
-
-`conda activate default`
 
 5. Execute the Jupyter Notebook via command line
 
-`jupyter nbconvert --execute --to notebook --inplace --debug AI_Upscaling_With_NPU.ipynb`
-
-To clean up the created environment, run `conda env remove -n default`
+    ```bash
+    uv run jupyter nbconvert --execute --to notebook --inplace --debug AI_Upscaling_With_NPU.ipynb
+    ```
 
 ## Opening Jupyter Notebook
 
 If you choose to run the Jupyter Notebook directly, you can open the Jupyter Notebook by running the following command:
 
-### Using `pixi`
+### Using `uv`
 
-**Windows:** `.\tools\run_pixi.ps1 run jupyter notebook AI_Upscaling_With_NPU.ipynb`
-**Linux:** `./tools/run_pixi.sh run jupyter notebook AI_Upscaling_With_NPU.ipynb`
+```bash
+uv run jupyter notebook AI_Upscaling_With_NPU.ipynb
+```
 
-### Using `conda`
+### Using VScode
 
-`jupyter notebook AI_Upscaling_With_NPU.ipynb`
+Open the notebook and select the appropriate Python interpreter:
+
+- For Windows: Open the notebook and select `.venv\Scripts\python.exe` as the Python interpreter.
+- For Linux: Open the notebook and select `.venv/bin/python` as the Python interpreter.
 
 ## Example Output
 

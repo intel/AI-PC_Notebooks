@@ -155,9 +155,7 @@ def resize_video(input_path, scale=2):
 
         temp_output_path = "temp_resized_video.mp4"
 
-        ffmpeg.input(input_path).output(
-            temp_output_path, vf=f"scale={new_width}:{new_height}"
-        ).overwrite_output().run()
+        ffmpeg.input(input_path).output(temp_output_path, vf=f"scale={new_width}:{new_height}").overwrite_output().run()
 
         # After processing, replace the original file with the resized one
         os.replace(temp_output_path, input_path)
