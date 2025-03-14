@@ -21,31 +21,13 @@ load_model now uses safetensors to load the model checkpoint.
 """
 
 import cv2
-
-import numpy as np
 import torch
-from safetensors.torch import load_file
-
-
-# Modified from https://github.com/cszn/BSRGAN/blob/main/main_test_bsrgan.py
-def load_model(model, model_path):
-    """loads model from safe-tensors checkpoint
-
-    Args:
-        model (RRDBNet): RRDBNet model
-        model_path (str): Path to the model checkpoint
-    """
-    try:
-        model.load_state_dict(load_file(model_path), strict=True)
-        for _, v in model.named_parameters():
-            v.requires_grad = False
-    except Exception as e:
-        print("Error loading model")
-        raise e
+import numpy as np
+from typing import Union
 
 
 # Sourced from https://github.com/cszn/BSRGAN/blob/main/utils/utils_image.py
-def imread_uint(path, n_channels=3):
+def imread_uint(path: str, n_channels: int = 3) -> np.ndarray:
     """reads an image from a path
 
     Args:
@@ -73,7 +55,7 @@ def imread_uint(path, n_channels=3):
 
 
 # Sourced from https://github.com/cszn/BSRGAN/blob/main/utils/utils_image.py
-def uint2tensor4(img):
+def uint2tensor4(img: np.ndarray) -> torch.Tensor:
     """converts a numpy array to a PyTorch tensor
 
     Args:
@@ -85,20 +67,14 @@ def uint2tensor4(img):
     try:
         if img.ndim == 2:
             img = np.expand_dims(img, axis=2)
-        return (
-            torch.from_numpy(np.ascontiguousarray(img))
-            .permute(2, 0, 1)
-            .float()
-            .div(255.0)
-            .unsqueeze(0)
-        )
+        return torch.from_numpy(np.ascontiguousarray(img)).permute(2, 0, 1).float().div(255.0).unsqueeze(0)
     except Exception as e:
         print("Error converting uint to tensor")
         raise e
 
 
 # Modified from https://github.com/cszn/BSRGAN/blob/main/utils/utils_image.py
-def tensor2uint(img):
+def tensor2uint(img: Union[torch.Tensor, np.ndarray]) -> np.ndarray:
     """converts a 4D tensor back into 3D numpy array (HxWxC)
 
     Args:
