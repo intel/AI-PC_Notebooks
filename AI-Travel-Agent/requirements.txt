@@ -1,4 +1,4 @@
-amadeus==11.0.0
+amadeus==12.0.0
 ipykernel==6.29.5
 jupyter==1.1.1
 langchain==0.3.20
