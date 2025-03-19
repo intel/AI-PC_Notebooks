@@ -1,0 +1,53 @@
+name: Coverity Scan
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  Coverity_action:
+    runs-on: "sandbox.prod.amr.dind"
+       
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - uses: intel-innersource/frameworks.actions.setup-coverity@v4
+        with:
+          analysis-version: 2024.3.0
+        
+      - name: Configure compilers for Coverity
+        run: |
+            cov-configure --python
+        
+      - name: Coverity Build - python
+        run: |
+            cd ${GITHUB_WORKSPACE}
+            cov-capture --dir ${GITHUB_WORKSPACE}/cov_dir --source-dir ${GITHUB_WORKSPACE}
+            cov-build --dir ${GITHUB_WORKSPACE}/cov_dir --no-command
+            cd -
+      - name: Coverity Analysis - python
+        run: |
+            cov-analyze --dir ${GITHUB_WORKSPACE}/cov_dir --enable-default --security --webapp-security --enable-audit-checkers
+
+
+      - name: Run cov-format-errors to read defects/create statis HTMl pages
+        run: |    
+            cov-format-errors --dir ${GITHUB_WORKSPACE}/cov_dir --json-output-v8 ${GITHUB_WORKSPACE}/coverity_dir_result.json
+      - name: Upload Scan artifact to Github
+        uses: actions/upload-artifact@v4
+        with:
+            name: Coverity-reports
+            path: |
+                coverity_dir_result.json
+      - name: Commit defects to Coverity portal
+        if: success() || failure()
+        run: |
+            export no_proxy="intel.com,.intel.com,localhost,127.0.0.1,coverity.devtools.intel.com"
+            export NO_PROXY="intel.com,.intel.com,localhost,127.0.0.1,coverity.devtools.intel.com"
+            export http_proxy="http://proxy-dmz.intel.com:911"
+            export HTTP_PROXY="http://proxy-dmz.intel.com:911"
+            export https_proxy="http://proxy-dmz.intel.com:912"
+            export HTTPS_PROXY="http://proxy-dmz.intel.com:912"
+            export socks_proxy="http://proxy-dmz.intel.com:1080"
+            export SOCKS_PROXY="http://proxy-dmz.intel.com:1080"
+            cov-commit-defects --dir ${GITHUB_WORKSPACE}/cov_dir --url "https://coverityent.devtools.intel.com/prod3" --user ${{ secrets.USER }} --password ${{ secrets.PASSWORD }} --stream "MisInformation_Guard"
