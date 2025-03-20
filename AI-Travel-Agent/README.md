@@ -1,7 +1,7 @@
 # Deploying Local LLM agent on AIPC
 
 ## Introduction
-This section of AIPC Samples showcases how to deploy local LLM agents using the Langchain tools on Intel® Core™ Ultra Processors. The aim is to deploy an Agent on the iGPU (integrated GPU) of the AIPC. For this, Llamacpp GPU backend for SYCL is setup and the agent created using the local LLM model. The agent makes use of langchain toolkits and tools for user queries. 
+This section of AIPC Samples showcases how to deploy local LLM agents using the Langchain built-in and custom tools on Intel® Core™ Ultra Processors. The aim is to deploy an Agent on the iGPU (integrated GPU) of the AI PC. For this, Llamacpp GPU backend for SYCL is setup and the agent created using the local LLM model. The agent makes use of langchain toolkits and tools for user queries. 
 
 ## Table of Contents
 1. AI Travel Agent Workflow
@@ -9,7 +9,7 @@ This section of AIPC Samples showcases how to deploy local LLM agents using the 
     - Windows
     - Linux
 3. Setting up environment and LlamaCPP-python GPU backend
-4. Sample execution on the AIPC GPU
+4. Sample execution on the AI PC GPU
 
 ## AI Travel Agent Workflow
 ![How it works](./assets/AI_Travel_Agent_Workflow.png)
@@ -32,17 +32,14 @@ Download and install the latest CMake for Windows from [here](https://cmake.org/
 Download and install VS 2022 community from [here](https://visualstudio.microsoft.com/downloads/)\
 **IMPORTANT:** Please select "Desktop Development with C++" option while installing Visual studio
 
-4. **Microsoft Visual Studio Code**\
-Download and install Microsoft Visual Studio Code from [here](https://code.visualstudio.com/Download)
+4. **Git for Windows**\
+Download and install Git from [here](https://git-scm.com/downloads/win)
 
 5. **Intel oneAPI Base Toolkit for Windows**\
 Download and install Intel oneAPI Base Toolkit for Windows from [here](https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=windows&windows-install-type=offline)
 
 6. **Miniconda for Windows**\
 Download and install Miniconda from [here](https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Windows-x86_64.exe)
-
-7. **Git for Windows**\
-Download and install Git from [here](https://git-scm.com/downloads/win)
 
 ### Linux:
 
@@ -63,18 +60,18 @@ Download, install the Miniconda using the below commands.
     ./conda init 
     ```
 
-4. **Intel oneAPI Base Toolkit for Linux**\
+3. **Intel oneAPI Base Toolkit for Linux**\
 Download and install Intel oneAPI Base Toolkit for Linux from [here](https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?packages=oneapi-toolkit&oneapi-toolkit-os=linux&oneapi-lin=offline)
 
-5. **CMake for Linux**\
+4. **CMake and Git for Linux**\
 Install the CMake using below commands:
     - For Debian/Ubuntu-based systems:
       ```
-      sudo apt update && sudo apt -y install cmake
+      sudo apt update && sudo apt -y install cmake git
       ```
     - For RHEL/CentOS-based systems:
       ```
-      sudo dnf update && sudo dnf -y install cmake
+      sudo dnf update && sudo dnf -y install cmake git
       ```
  
 ## Setting up environment and LlamaCPP-python GPU backend
@@ -104,11 +101,11 @@ Open a new terminal as administrator (right-click the terminal icon and select '
    set CXX=icx
    set CC=cl
    set CMAKE_ARGS="-DGGML_SYCL=ON -DGGML_SYCL_F16=ON -DCMAKE_CXX_COMPILER=icx -DCMAKE_C_COMPILER=cl"
-   pip install llama-cpp-python==0.3.1 -U --force --no-cache-dir --verbose
+   pip install llama-cpp-python==0.3.8 -U --force --no-cache-dir --verbose
    ```
    On Linux:
    ```
-   CMAKE_ARGS="-DGGML_SYCL=on -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icpx" pip install llama-cpp-python==0.3.1 -U --force --no-cache-dir --verbose
+   CMAKE_ARGS="-DGGML_SYCL=on -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icpx" pip install llama-cpp-python==0.3.8 -U --force --no-cache-dir --verbose
    ```
 4. **Install the required pip packages**
    ```
@@ -118,27 +115,32 @@ Open a new terminal as administrator (right-click the terminal icon and select '
    ```
    python -m ipykernel install --user --name=gpu_llmsycl
    ```
-6. **Download the GGUF models under `./models` folder using huggingface-cli**
-   ```
-   huggingface-cli download bartowski/Meta-Llama-3.1-8B-Instruct-GGUF --include "Meta-Llama-3.1-8B-Instruct-Q4_K_S.gguf" --local-dir ./models
-   huggingface-cli download bartowski/Qwen2.5-7B-Instruct-GGUF --include "Qwen2.5-7B-Instruct-Q4_K_S.gguf" --local-dir ./models
-   ```
-    - Syntax for downlading the other models
-   ```
-   huggingface-cli download <repo_id> <filename> --local-dir <directory>
-   ```
+6. **Login and download the GGUF models under `./models` folder using huggingface-cli**
+   - Log in to Huggingface:
+     ```
+     huggingface-cli login
+     ```
+   - Generate a token from Huggingface. For private or gated models, refer to [Huggingface documentation](https://huggingface.co/docs/hub/en/models-gated).
+     ```
+     huggingface-cli download bartowski/Meta-Llama-3.1-8B-Instruct-GGUF --include "Meta-Llama-3.1-8B-Instruct-Q4_K_S.gguf" --local-dir ./models
+     huggingface-cli download bartowski/Qwen2.5-7B-Instruct-GGUF --include "Qwen2.5-7B-Instruct-Q4_K_S.gguf" --local-dir ./models
+     ```
+   - Syntax for downlading the other models
+     ```
+     huggingface-cli download <repo_id> <filename> --local-dir <directory>
+     ```
 7. **Create and copy the ([Amadeus toolkit](https://developers.amadeus.com/get-started/get-started-with-self-service-apis-335), [SerpAPI](https://serpapi.com/), [GoogleSearchAPIWrapper](https://serper.dev/)) secret API keys in .env file**
 
 8. **Launch the Jupyter notebook using the below command**
-    ```
-    jupyter notebook
-    ```
-     - Open the [AI Travel Agent notebook file](./AI_Travel_Agent.ipynb) and [Agent using Custom tools notebook file](./LLM_Agent_with_custom_tools.ipynb) in the jupyter notebook, select the gpu_llmsycl kernel and run the code cells one by one in the notebook.
-  
+   ```
+   jupyter notebook
+   ```
+   - Open the [AI Travel Agent notebook file](./AI_Travel_Agent.ipynb) and [Agent using Custom tools notebook file](./LLM_Agent_with_custom_tools.ipynb) in the jupyter notebook, select the gpu_llmsycl kernel and run the code cells one by one in the notebook.
+   
 9. **Run the [AI Travel Agent streamlit file](./AI_Travel_Agent_streamlit.py) using the below command**
-    ```
-    streamlit run AI_Travel_Agent_streamlit.py
-    ```
+   ```
+   streamlit run AI_Travel_Agent_streamlit.py
+   ```
     
 ## Sample execution on the AIPC GPU
 - [AI Travel Agent](./AI_Travel_Agent.ipynb)
