@@ -50,4 +50,4 @@ jobs:
             export HTTPS_PROXY="http://proxy-dmz.intel.com:912"
             export socks_proxy="http://proxy-dmz.intel.com:1080"
             export SOCKS_PROXY="http://proxy-dmz.intel.com:1080"
-            cov-commit-defects --dir ${GITHUB_WORKSPACE}/cov_dir --url "https://coverityent.devtools.intel.com/prod3" --user ${{ secrets.USER }} --password ${{ secrets.PASSWORD }} --stream "MisInformation_Guard"
+            cov-commit-defects --dir ${GITHUB_WORKSPACE}/cov_dir --url "https://coverityent.devtools.intel.com/prod3" --user ${{ secrets.USER }} --password ${{ secrets.PASSWORD }} --stream "AI_PC_Notebooks"
