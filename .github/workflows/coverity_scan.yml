@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 jobs:
   Coverity_action:
-    runs-on: "sandbox.prod.amr.dind"
+    runs-on: "ephemeral-action-runner-ubuntu"
        
     steps:
       - name: Checkout code
