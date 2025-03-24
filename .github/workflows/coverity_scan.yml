@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 jobs:
   Coverity_action:
-    runs-on: "ephemeral-action-runner-ubuntu"
+    runs-on: "ubuntu-latest"
        
     steps:
       - name: Checkout code
