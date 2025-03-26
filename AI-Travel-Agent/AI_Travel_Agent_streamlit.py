@@ -258,9 +258,9 @@ def streamlit_UI():
     st.sidebar.write("Here are some questions you can ask:")
     predefined_questions = [
         "What are the major airlines that operate to London?",
-        "Where is the best place to see the Lantern Festival 2024 in Thailand?",
+        "Where is the best place to see the Lantern Festival 2025 in Thailand?",
         "What's the height of the Burj Khalifa in Dubai?",
-        "Provide the cheapest flight information to travel from New York to Germany on 15th February 2025.",
+        "Provide the cheapest flight information to travel from New York to Germany on 15th December 2025.",
         "What are the best places to visit in Spain?"
     ]
 
