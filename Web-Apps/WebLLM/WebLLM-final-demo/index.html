@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <title>Chatbot in the Browser</title>
+    </head>
+    <body class="bg-gray-100 font-sans">
+
+        <div class="max-w-4xl mx-auto p-6">
+            <!-- Header -->
+            <h1 class="text-center p-6 text-3xl font-bold text-blue-600">LLM Generation in the Browser</h1>
+            
+            <!-- Model Selection Section -->
+            <div class="flex justify-center items-center space-x-4 my-4">
+                <label for="model-selection" class="text-s font-semibold text-gray-900">Model</label>
+                <select name="model-selection" id="model-selection" class="p-2 rounded-lg border border-gray-300 text-gray-700 w-full">
+                    <option value="">Please select</option>
+                    <!-- Add options here -->
+                </select>
+                <button id="download" class="rounded-lg bg-indigo-600 px-6 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50">
+                    Download
+                </button>
+            </div>
+
+
+            <!-- Loading Progress -->
+            <div id="loading-progress" class="hidden mt-4 text-center text-sm text-gray-600">Downloading model...></div>
+            
+            <!-- Chat Container Block -->
+            <div class="my-3 w-full mx-auto border border-gray-300 rounded-lg bg-white shadow-md">
+                <!-- Messages Container -->
+                <div id="message-container" class="flex-1 overflow-auto p-4 border-b border-gray-300 space-y-2 max-h-80">
+                    <!-- Messages will appear here -->
+                </div>
+
+                <!-- User Input and Send Button -->
+                <div class="w-full flex items-center space-x-2 p-3">
+                    <textarea id="chat-input" class="flex-grow border border-gray-300 rounded-lg" placeholder="Type a message..." rows="2"></textarea>
+                    <button id="send-btn" class="rounded-lg bg-indigo-600 px-6 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50 disabled:bg-gray-400 disabled:cursor-not-allowed" disabled>Send</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- External JavaScript File -->
+        <script type="module" src="./src/chat.js"></script>
+    </body>
+</html>
