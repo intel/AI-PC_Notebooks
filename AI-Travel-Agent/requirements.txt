@@ -4,7 +4,7 @@ jupyter==1.1.1
 langchain==0.3.23
 langchain-community==0.3.20
 streamlit==1.44.0
-huggingface_hub==0.29.2
+huggingface_hub==0.30.1
 pydantic==2.11.2
 wikipedia==1.4.0
 google-search-results==2.4.2
