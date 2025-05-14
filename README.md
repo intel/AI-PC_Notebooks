@@ -3,7 +3,6 @@
 Welcome to the AI PC GenAI Samples Repository.This repository features a curated collection of notebooks designed to demonstrate generative AI workloads on AI PCs. These notebooks are designed to be accessible to a broad audience, including AI creators, artists, engineers, and those who are just curious about Generative AI.
 
 
-
 ## Table of Contents
 - LLM
     - [Intel LLM Library for Pytorch on AI PC](./LLM/03_llm_pytorch_gpu.ipynb)
