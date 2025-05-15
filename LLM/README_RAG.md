@@ -102,7 +102,7 @@ Open a new Mini-forge terminal and perform the following steps:
    ```
    pip install -r rag/requirements.txt
    ```
-5. **Install a ipykernel to select the gpu_llmsycl environment**
+5. **Install a ipykernel to select the llamacpp environment**
    ```
    python -m ipykernel install --user --name=llamacpp
    ```
