@@ -22,8 +22,7 @@ To set up your AIPC for running with Intel iGPUs, follow these essential steps:
 4. Install CMake
 
 ### Hardware
-- Intel® Core™ Ultra Processor - Windows 11
-
+- Intel® Core™ Ultra Processor - Windows 11.
 
 ### Software
 - Python
