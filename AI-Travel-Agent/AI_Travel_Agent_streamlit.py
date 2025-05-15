@@ -2,13 +2,13 @@
 # streamlit run AI_Travel_Agent_streamlit.py
 
 # Importing necessary modules
-
 import os
 import re
 import time
 import streamlit as st
 from amadeus import Client
 from dotenv import load_dotenv
+from huggingface_hub import hf_hub_download
 from langchain_community.llms import LlamaCpp
 from langchain_core.callbacks import CallbackManager, StreamingStdOutCallbackHandler
 from langchain_community.utilities import GoogleSerperAPIWrapper
@@ -27,10 +27,10 @@ load_dotenv()
 def create_llm():
     """
     Create and initialize the LlamaCpp with the selected model.
-    Parameters can be changed based on the end user requirements.
-    Here we are using Meta Llama 3.1(Q4_K_S) model which is configured using some hyperparameters.
-    For example, GPU Layers to be offloaded on all the available layers for inference.
-    Context Length of 4096 tokens. Temperature set as 0 for deterministic output.
+    Parameters can be changed based on the end user's requirements.
+    Here we are using the  Meta Llama 3.1(Q4_K_S) model, which is configured using some hyperparameters.
+    For example, GPU Layers are to be offloaded to all the available layers for inference.
+    Context Length of 4096 tokens. The temperature is set as 0 for deterministic output.
     Top-P Sampling as 0.95 for controlled randomness, Batch Size as 512 for parallel processing
 
     Returns:
@@ -40,10 +40,14 @@ def create_llm():
         Exception: If there is any error during model loading, a Streamlit error is displayed.
     """
     try:
+        model_path = hf_hub_download(
+            repo_id="bartowski/Meta-Llama-3.1-8B-Instruct-GGUF", 
+            filename="Meta-Llama-3.1-8B-Instruct-Q4_K_S.gguf") # Downloading the model here
+        
         llm = LlamaCpp(
             # Path to the Llama model file
-            model_path="./models/Meta-Llama-3.1-8B-Instruct-Q4_K_S.gguf",
-            # Number of layers to be loaded into gpu memory (default: 0)
+            model_path=model_path,
+            # Number of layers to be loaded into GPU memory (default: 0)
             n_gpu_layers=-1,
             # Random number generator (RNG) seed (default: -1, -1 = random seed)
             seed=512,
@@ -296,14 +300,10 @@ def streamlit_UI():
             try:
                 with st.spinner("Generating answer..."):
                     with st.expander("Agent Execution", expanded=True):
-                        # Create placeholder for streaming output
-                        # response_placeholder = st.empty()
-
                         chunks = []
                         for chunk in agent_executor.stream({"input": question}):
                             chunks.append(chunk)
                             st.write(chunk)
-                    # response = agent_executor.invoke({"input": question})
 
                     placeholder = st.empty()
                     content = chunks[2]['output']
@@ -345,8 +345,11 @@ except Exception as e:
 PREFIX, FORMAT_INSTRUCTIONS, SUFFIX, HUMAN_MESSAGE_TEMPLATE = create_prompt_template()
 
 # calling the create_agent function here
-agent = create_agent(llm, tools, PREFIX, SUFFIX,
-                     HUMAN_MESSAGE_TEMPLATE, FORMAT_INSTRUCTIONS)
+try:
+    agent = create_agent(llm, tools, PREFIX, SUFFIX,
+                         HUMAN_MESSAGE_TEMPLATE, FORMAT_INSTRUCTIONS)
+except Exception as e:
+    st.error(f"Error loading the agent with tools : {e}")
 
 # calling the run_agent function here
 agent_executor = run_agent(agent, tools)
