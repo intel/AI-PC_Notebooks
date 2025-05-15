@@ -112,5 +112,5 @@ Open a new Mini-forge terminal and perform the following steps:
    ```
    jupyter lab
    ```
-   - Open the [LLM](./09_rag_langchain.ipynb) in the jupyter notebook, select the llamacpp kernel and run the code cells one by one in the notebook.
+   - Open the [Notebook](./09_rag_langchain.ipynb), select the llamacpp kernel and run the code cells one by one in the notebook.
    
