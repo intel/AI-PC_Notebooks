@@ -25,8 +25,9 @@ Download and install Git from [here](https://git-scm.com/downloads/win)
 
 5. **Intel oneAPI Base Toolkit for Windows**\
 Download and install Intel oneAPI Base Toolkit for Windows from [here](https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=windows&windows-install-type=offline)
+
 **Note: Its important you need to download the 2025.0.1 version(older)of the oneAPI Basekit as llamacpp python is not yet compatible with latest oneAPI Basekit.
-Select the "Choose a Version" dropdown and select 2025.01
+When downloading the installer please select the "Choose a Version" dropdown and select 2025.0.1**
 
 7. **Miniconda for Windows**\
 Download and install Miniconda from [here](https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Windows-x86_64.exe)
