@@ -103,7 +103,7 @@ Open a new Mini-forge terminal and perform the following steps:
    ```
 5. **Install a ipykernel to select the gpu_llmsycl environment**
    ```
-   python -m ipykernel install --user --name=gpu_llmsycl
+   python -m ipykernel install --user --name=llamacpp
    ```
 
 
