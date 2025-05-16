@@ -114,7 +114,8 @@ def create_prompt_template():
 
     FORMAT_INSTRUCTIONS = """Use a json blob to specify a tool by providing an action key (tool name) and an action_input key (tool input).
 
-    Use the closest_airport tool and single_flight_search tool for any flight related queries. Give all the flight details including Flight Number, Carrier, Departure time, Arrival time and Terminal details to the human.
+    Use the closest_airport tool and single_flight_search tool for any flight related queries.
+    Give all the flight details including Flight Number, Carrier, Departure time, Arrival time and Terminal details to the human.
     Use the Google Search tool and knowledge base for any itinerary-related queries. Give all the detailed information on tourist attractions, must-visit places, and hotels with ratings to the human.
     Use the Google Search tool for distance calculations. Give all the web results to the human.
     Always consider the traveler's preferences, budget constraints, and any specific requirements mentioned in their query.
@@ -146,7 +147,8 @@ def create_prompt_template():
     }}}}
     ```[/INST]"""
 
-    SUFFIX = """Begin! Reminder to ALWAYS respond with a valid json blob of a single action. Use tools if necessary. Respond directly if appropriate. Format is Action:```$JSON_BLOB```then Observation:.
+    SUFFIX = """Begin! Reminder to ALWAYS respond with a valid json blob of a single action. Use tools if necessary. Respond directly if appropriate.
+    Format is Action:```$JSON_BLOB```then Observation:.
     Thought:[INST]"""
 
     HUMAN_MESSAGE_TEMPLATE = "{input}\n\n{agent_scratchpad}"
@@ -253,7 +255,8 @@ def streamlit_UI():
         Exception: If there is any error during the fetching or streaming the response, a streamlit error is displayed.
     """
     st.title(":earth_africa::airplane: AI Travel Agent")
-    st.write("This Langchain-powered AI Travel Agent is designed to assist you with quick travel-related queries. You can request **flight details** for a specific day or find **nearby airports** by location. For other questions, we use **Google Search** for the latest information.")
+    st.write("This Langchain-powered AI Travel Agent is designed to assist you with quick travel-related queries. \
+    You can request **flight details** for a specific day or find **nearby airports** by location. For other questions, we use **Google Search** for the latest information.")
 
     # Sidebar with questions on the UI
     st.sidebar.title(":bulb: Example Queries")
