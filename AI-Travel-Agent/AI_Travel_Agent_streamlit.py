@@ -40,10 +40,8 @@ def create_llm():
         Exception: If there is any error during model loading, a Streamlit error is displayed.
     """
     try:
-        model_path = hf_hub_download(
-            repo_id="bartowski/Meta-Llama-3.1-8B-Instruct-GGUF", 
-            filename="Meta-Llama-3.1-8B-Instruct-Q4_K_S.gguf") # Downloading the model here
-        
+        model_path = hf_hub_download(repo_id="bartowski/Meta-Llama-3.1-8B-Instruct-GGUF", filename="Meta-Llama-3.1-8B-Instruct-Q4_K_S.gguf")  # Downloading the model here
+
         llm = LlamaCpp(
             # Path to the Llama model file
             model_path=model_path,
