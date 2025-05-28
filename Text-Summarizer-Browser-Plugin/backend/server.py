@@ -5,6 +5,10 @@ from flask_cors import CORS
 from code import load_llm, pre_process_url_data, qa_on_url_summarized_text, pre_process_pdf_data, qa_on_pdf_summarized_text
 import tempfile
 import chromadb
+import os
+os.environ['USER_AGENT'] = 'myagent'
+import warnings
+warnings.filterwarnings("ignore")
 
 # Initializing the flask app and enabling CORS
 app = Flask(__name__)
@@ -114,4 +118,20 @@ def url_process_query():
 
 
 if __name__ == '__main__':
+    print("""
+    🎉 Flask server is Ready! 🎉
+    Your application is now live and waiting for interaction!
+    
+    **🚀 Essential Step: Activate Your Browser Plugin!**
+    
+    - This application operates through its dedicated browser extension.
+    - To begin, please open your web browser and locate the plugin's icon, which looks like `T`, in your toolbar (it's often in the top-right corner).
+    - Click on the `T` icon to access the browser extension
+    
+    **Having trouble?**
+    - Is the plugin loaded? If you haven't already, please load it by following the Readme.md file.
+    - Is it enabled? Double-check your browser's extension settings to ensure the plugin isn't disabled.
+    - Have you pinned the extension? Pin the extension.
+    """
+         )
     app.run(port=5000)
