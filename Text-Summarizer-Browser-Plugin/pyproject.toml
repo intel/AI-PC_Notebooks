@@ -7,6 +7,7 @@ requires-python = ">=3.12"
 dependencies = [
     "flask>=3.1.1",
     "flask-cors>=6.0.0",
+    "jupyter>=1.1.1",
     "langchain>=0.3.25",
     "langchain-chroma>=0.2.4",
     "langchain-community>=0.3.24",

@@ -1,0 +1,30 @@
+Text Summarizer Plugin
+1.	There’s some good setup context here, but would be ideal again to be sure thing are consistent with the other readme’s. 
+        - As there are additional steps for the browser plugin, had to make few modifications of the flow. Let me see if I can make it consistent throughout
+
+2.	Step 2 need to be run not from the previous cmd.  The user needs to opne a Miniforge console from the recently installed application. 
+        - You are right. When users install miniforge for the first time, they should open a new terminal. As we are planning to migrate from pip to uv for environment setup, excluding this step from Readme.md file.
+
+3.	Before installing dependencies, need to tell users to nav to the sample directory (esp since earlier we had the user nav to the minforge directory.
+        - Done
+
+4.	Within the notebook, how does the hugging face login work.  It seems like it’s erroring, but I can’t tell, and I obviously haven’t supply any credentials. (and after closing the notebook, I noticed messages in the output about not being able to access HF, so likely the culprit of why things aren’t working in the end).  
+        - Huggingface login works within and outside the notebook(via terminal) too. It is also a crucial steps to access gated repositories(gated HF models) If you don't provide the access tokens, you might encounter access related errors with HF models. Refer this for more(https://huggingface.co/docs/hub/en/security-tokens) 
+
+5.	May want to provide a warning that converting the hugging face models to openVINO will take quite some time. 
+        - Added an alert message
+
+6.	We haven’t really talked about the extension itself, so we really need to provide some context in the load the extension section. In the description for selectin the extension, need to note that the extension is included with the sample Text-Summarizer-Browser-Plugin sample in the extension folder. 
+        - 
+
+7.	When importing he necessary libraries, I got the following warning. 
+USER_AGENT environment variable not set, consider setting it to identify your requests.
+        - That is a warning and could be ignored. However, I have set the environment variable.
+
+8.	Everything seemed to work in the notebook until I launched the app using the url provided in the last cell.  I simply got a “Not Found’ message. 
+        - Flask server is running in the URL mentioned(hardcoded) but the application is available to access via browser extension. I have added a detailed instructions right before the running the flask app to be more clear. Do not access the flask server API Endpoint as the application is running on browser extension
+
+9.	Follow the cli instructions were fine, except that I got the same error, “Not Found” when trying to launch using the supplied url. 
+        - Flask server is running in the URL mentioned(hardcoded) but the application is available to access via browser extension. I have added a detailed instructions right before the running the flask app to be more clear. Do not access the flask server API Endpoint as the application is running on browser extension.
+
+
