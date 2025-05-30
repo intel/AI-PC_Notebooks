@@ -1,46 +1,46 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const selectModelStep = document.getElementById('selectModelStep');
-    const summarizersStep = document.getElementById('summarizersStep');
-    const modelSelect = document.getElementById('modelSelect');
-    const selectModelButton = document.getElementById('selectModelButton');
-    const urlInput = document.getElementById('urlInput');
-    const sendUrlButton = document.getElementById('sendUrlButton');
-    const responseElement = document.getElementById('responseElement');
-    const pdfFileInput = document.getElementById('pdfFile');
-    const uploadPdfButton = document.getElementById('uploadPdfButton');
-    const fileNameElement = document.getElementById('fileName');
-    const progressContainer = document.getElementById('progressContainer');
-    const uploadProgress = document.getElementById('uploadProgress');
-    const uploadPercentage = document.getElementById('uploadPercentage');
-    const pdfResponseElement = document.getElementById('pdfResponseElement');
-    const pdfQueryInput = document.getElementById('pdfQueryInput');
-    const pdfQueryButton=document.getElementById('pdfQueryButton');
-    const answerListPdf = document.getElementById('answerListPdf');
-    const selectedModelElement = document.getElementById('selectedModelElement');
-    const urlfurtherq = document.getElementById('urlfurtherq');
-    const pdffurtherq = document.getElementById('pdffurtherq');
-    const urlQueryInput = document.getElementById('urlQueryInput');
-    const urlQueryButton=document.getElementById('urlQueryButton');
-    const answerList = document.getElementById('answerList');
-    
-    // Step 1: Select Model
-    selectModelButton.addEventListener('click', () => {
-        const selectedModel = modelSelect.value;
+    const selectModelStep= document.getElementById('selectModelStep');
+    const summarizersStep= document.getElementById('summarizersStep');
+    const modelSelect= document.getElementById('modelSelect');
+    const selectModelButton= document.getElementById('selectModelButton');
+    const urlInput= document.getElementById('urlInput');
+    const sendUrlButton= document.getElementById('sendUrlButton');
+    const responseElement= document.getElementById('responseElement');
+    const pdfFileInput= document.getElementById('pdfFile');
+    const uploadPdfButton= document.getElementById('uploadPdfButton');
+    const fileNameElement= document.getElementById('fileName');
+    const progressContainer= document.getElementById('progressContainer');
+    const uploadProgress= document.getElementById('uploadProgress');
+    const uploadPercentage= document.getElementById('uploadPercentage');
+    const pdfResponseElement= document.getElementById('pdfResponseElement');
+    const pdfQueryInput= document.getElementById('pdfQueryInput');
+    const pdfQueryButton= document.getElementById('pdfQueryButton');
+    const answerListPdf= document.getElementById('answerListPdf');
+    const selectedModelElement= document.getElementById('selectedModelElement');
+    const urlfurtherq= document.getElementById('urlfurtherq');
+    const pdffurtherq= document.getElementById('pdffurtherq');
+    const urlQueryInput= document.getElementById('urlQueryInput');
+    const urlQueryButton= document.getElementById('urlQueryButton');
+    const answerList= document.getElementById('answerList');
 
-        if (selectedModel=== "") {
+    // Step 1: Select Model
+    selectModelButton.addEventListener('click', ()=> {
+        const selectedModel= modelSelect.value;
+
+        if (selectedModel === "") {
             alert("Please select a model.");
-            selectModelButton.innerHTML=`Select Model`;
+            selectModelButton.innerHTML= `Select Model`;
         }
         else {
-            selectModelButton.innerHTML=`Loading ${selectedModel} <span class="button-spinner"></span>`;
-            const modelName = selectedModel;
+            selectModelButton.innerHTML = `Loading ${selectedModel} < span class = "button-spinner" > </span > `;
+            const modelName= selectedModel;
             if (modelName) {
-                selectedModelElement.textContent = `Selected model: ${modelName}`;
-                
+                selectedModelElement.textContent= `Selected model: ${modelName}`;
+
             } else {
                 console.error('Could not find the model name.');
-                selectModelButton.disabled=True;
-                selectModelButton.innerHTML="Failed to Load"
+                selectModelButton.disabled = True;
+                selectModelButton.innerHTML = "Failed to Load"
             }
             // Send selected model to the backend to load and compile
             fetch('http://localhost:5000/select-model', {
@@ -48,25 +48,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ model_id: modelName }),
+                body: JSON.stringify({model_id: modelName}),
             })
-            .then(response => {
+            .then(response=> {
                 response.json()
                 selectModelStep.classList.add('hidden');
                 summarizersStep.classList.remove('hidden');
             })
-            .catch((error) => {
+            .catch((error)=> {
                 console.error('Error:', error);
                 selectModelButton.remove('hidden');
             });
         }
-        
+
     });
-    
+
 
     // Step 2: Web Summarizer
     function ValidURL(url){
-        var regex = /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+        var regex= /(?: https?): \/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
         if(!regex .test(url)) {
             alert("Please enter valid URL."); 
         } 
