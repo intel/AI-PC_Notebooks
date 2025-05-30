@@ -1,4 +1,5 @@
 # Importing necessary Libraries
+import warnings
 import time
 from flask import Flask, Response, request, jsonify
 from flask_cors import CORS
@@ -7,7 +8,6 @@ import tempfile
 import chromadb
 import os
 os.environ['USER_AGENT'] = 'myagent'
-import warnings
 warnings.filterwarnings("ignore")
 
 # Initializing the flask app and enabling CORS
@@ -133,5 +133,5 @@ if __name__ == '__main__':
     - Is it enabled? Double-check your browser's extension settings to ensure the plugin isn't disabled.
     - Have you pinned the extension? Pin the extension.
     """
-         )
+          )
     app.run(port=5000)

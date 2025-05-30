@@ -1,85 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web & PDF Summarizer</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Summarizer</h1>
-       
-        <!-- Step 1: Select Model -->
-        <div id="selectModelStep" class="step">
-            <label for="modelSelect">Select Model :</label>
-            <div class="input-group">
-                <select id="modelSelect">
-                    <option value="">-----</option>
-                    <option value="Meta LLama 2">Meta Llama 2</option>
-                    <option value="Qwen 7B Instruct">Qwen 7B Instruct Model</option>
-                </select>
-            </div>
-            <button id="selectModelButton" class="button">Select Model</button>
-        </div>
- 
-        <!-- Step 2: Web and PDF Summarizers -->
-        <div id="summarizersStep" class="step hidden">
-            <p id="modelSelect"></p>
-            <p id="selectedModelElement" class="model"><b></b></p> 
-            <div class="tab">
-                <button class="tablinks" id="webSummarizerButton">Web Page</button>
-                <button class="tablinks" id="pdfSummarizerButton">PDF</button>
-               
-            </div>
-            <div id="webSummarizer" class="tabcontent">
-                <div class="input-group">
-                    <label for="urlInput">Enter URL:</label>
-                    <input type="text" id="urlInput" pattern="https://.*" placeholder="Enter an URL here:" required/>
-                </div>
-                <button id="sendUrlButton" class="button">Summarize</button>
-                <p id="responseElement" class="step hidden"></p>
-                 
-                               
-                <div class="qna-container" class="step hidden">
-                    <p id="urlfurtherq" class="step hidden"><strong>Any Further Questions?</strong></p>
-                    <div class="query-box">
-                      <input type="text" id="urlQueryInput" placeholder="enter your query here" class="step hidden">
-                      <button id="urlQueryButton" class="step hidden">Answer</button>
-                    </div>
-                    <ul id="answerList"></ul>
-                </div>
-            </div>
- 
-            <div id="pdfSummarizer" class="tabcontent">
-                <div class="input-group">
-                    <label for="pdfFile"><b> Select PDF: </b></label>
-                    <input type="file" id="pdfFile" accept="application/pdf">
-                </div>
-                <div id="progressContainer" class="progress">
-                    <div class="progress-bar">
-                        <div id="uploadProgress"></div>
-                    </div>
-                    <p id="uploadPercentage">0%</p>
-                </div>
-                <p id="fileName" class="step hidden"></p>
-                <button id="uploadPdfButton" class="button">Upload and Summarize</button>
-                <p id="pdfResponseElement" class="step hidden"></p>
+<!DOCTYPE html >
+<html lang = "en" >
+<head >
+   <meta charset = "UTF-8" >
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0" >
+    <title > Web & PDF Summarizer < /title >
+    <link rel = "stylesheet" href = "style.css" >
+</head >
+<body >
+   <div class = "container" >
+        <h1 > Summarizer < /h1 >
 
-                <div class="qna-container" class="step hidden"></div>
-                    <p id="pdffurtherq" class="step hidden"><bold>Any Further Questions?</bold></p>
-                    <div class="query-box">
-                      <input type="text" id="pdfQueryInput" placeholder="enter your query here" class="step hidden">
-                      <button id="pdfQueryButton" class="step hidden">Answer</button>
-                    </div>
-                    <ul id="answerListPdf"></ul>
-                </div>
-            </div>
-   
-           
-        </div>
-    </div>
-    <script src="popup.js" defer></script>
-</body>
-</html>
- 
+        <!-- Step 1: Select Model - ->
+        <div id = "selectModelStep" class = "step" >
+            <label for = "modelSelect" > Select Model: < /label >
+            <div class = "input-group" >
+               <select id = "modelSelect" >
+                    <option value = "" > ----- < /option >
+                    <option value = "Meta LLama 2" > Meta Llama 2 < /option >
+                    <option value = "Qwen 7B Instruct" > Qwen 7B Instruct Model < /option >
+                </select >
+            </div >
+            <button id = "selectModelButton" class = "button">Select Model</button>
+        </div >
+
+        <!-- Step 2: Web and PDF Summarizers - ->
+        <div id = "summarizersStep" class = "step hidden">
+            <p id = "modelSelect" > </p>
+            <p id = "selectedModelElement" class = "model"><b></b></p> 
+            <div class = "tab" >
+                <button class = "tablinks" id = "webSummarizerButton">Web Page</button>
+                <button class = "tablinks" id = "pdfSummarizerButton">PDF</button>
+
+            </div >
+            <div id = "webSummarizer" class = "tabcontent">
+               <div class = "input-group" >
+                    <label for = "urlInput" > Enter URL:</label>
+                    <input type = "text" id = "urlInput" pattern="https://.*" placeholder="Enter an URL here:" required/>
+                </div >
+                <button id = "sendUrlButton" class = "button">Summarize</button>
+                <p id = "responseElement" class = "step hidden"></p>
+
+
+                <div class = "qna-container" class = "step hidden">
+                    <p id = "urlfurtherq" class = "step hidden"><strong>Any Further Questions?</strong></p>
+                    <div class = "query-box" >
+                        <input type = "text" id = "urlQueryInput" placeholder="enter your query here" class="step hidden">
+                        <button id = "urlQueryButton" class = "step hidden">Answer</button>
+                    </div >
+                    <ul id = "answerList" > </ul>
+                </div >
+            </div >
+
+            <div id = "pdfSummarizer" class = "tabcontent">
+               <div class = "input-group" >
+                    <label for = "pdfFile" > <b> Select PDF: </b></label>
+                    <input type = "file" id = "pdfFile" accept="application/pdf">
+                </div >
+                <div id = "progressContainer" class = "progress">
+                   <div class = "progress-bar" >
+                        <div id = "uploadProgress" > </div>
+                    </div >
+                    <p id = "uploadPercentage" > 0%</p>
+                </div >
+                <p id = "fileName" class = "step hidden"></p>
+                <button id = "uploadPdfButton" class = "button">Upload and Summarize</button>
+                <p id = "pdfResponseElement" class = "step hidden"></p>
+
+                <div class = "qna-container" class = "step hidden"></div>
+                    <p id = "pdffurtherq" class = "step hidden"><bold>Any Further Questions?</bold></p>
+                    <div class = "query-box" >
+                        <input type = "text" id = "pdfQueryInput" placeholder="enter your query here" class="step hidden">
+                        <button id = "pdfQueryButton" class = "step hidden">Answer</button>
+                    </div >
+                    <ul id = "answerListPdf" > </ul>
+                </div >
+            </div >
+
+        </div >
+    </div >
+    <script src = "popup.js" defer > </script>
+</body >
+</html >
