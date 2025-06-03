@@ -5,25 +5,25 @@ A plug-and -play Chrome extension seamlessly integrates with Flask and leverages
 This Chrome extension acts as the immediate user gateway, offering a minimalist interface right in the browser's toolbar that lets users instantly trigger summarization. It's designed to efficiently capture the required input, whether it's a webpage's URL or content from an uploaded PDF, and securely send this data to the Flask server for further processing.
 
 # Contents
-- [Sample Workflow](./Readme.md  # sample-workflow)
-- [Prerequisites](./Readme.md  # prerequisites)
-- [Sample Structure](./Readme.md  # sample-structure)
-- [Run the `Text Summarizer Browser Plugin` Sample](./Readme.md  # run-the-text-summarizer-browser-plugin-sample)
-  - [Setup the environment with uv](./Readme.md  # setup-the-environment-with-uv)
-  - [Load this `Text Summarizer` extension](./Readme.md  # load-this-text=summarizer-extension)
-    - [Contens of `extension` directory](./Readme.md  # contents-of-extension-directory)
-    - [Load an unpacked extension](./Readme.md  # load-an-unpacked-extension)
-    - [Pin the extension](./Readme.md  # pin-the-extension)
-  - [Run the sample](./Readme.md  # run-the-sample)
-    - [Steps to follow via Jupyter Notebook](./Readme.md  # steps-to-follow-via-jupyter-notebook)
-    - [Steps to follow via Terminal](./Readme.md  # steps-to-follow-via-terminal)
-    - [Interact with `Text Summarizer Browser Plugin`](./Readme.md  # interact-with-text-summarizer-browser-plugin)
+- [Sample Workflow](./Readme.md#sample-workflow)
+- [Prerequisites](./Readme.md#prerequisites)
+- [Sample Structure](./Readme.md#sample-structure)
+- [Run the `Text Summarizer Browser Plugin` Sample](./Readme.md#run-the-text-summarizer-browser-plugin-sample)
+  - [Setup the environment with uv](./Readme.md#setup-the-environment-with-uv)
+  - [Load this `Text Summarizer` extension](./Readme.md#load-this-text=summarizer-extension)
+    - [Contens of `extension` directory](./Readme.md#contents-of-extension-directory)
+    - [Load an unpacked extension](./Readme.md#load-an-unpacked-extension)
+    - [Pin the extension](./Readme.md#pin-the-extension)
+  - [Run the sample](./Readme.md#run-the-sample)
+    - [Steps to follow via Jupyter Notebook](./Readme.md#steps-to-follow-via-jupyter-notebook)
+    - [Steps to follow via Terminal](./Readme.md#steps-to-follow-via-terminal)
+    - [Interact with `Text Summarizer Browser Plugin`](./Readme.md#interact-with-text-summarizer-browser-plugin)
 
 
 # Sample Workflow
 
-- This architecture is split into two main components: a lightweight ** Chrome extension ** and a powerful ** Flask server**.
-- The ** Chrome extension ** serves as the user's direct interface, enabling them to simply click a button to initiate summarization of the current webpage or to upload a PDF directly from their browser.
+- This architecture is split into two main components: a lightweight **Chrome extension** and a powerful **Flask server**.
+- The **Chrome extension** serves as the user's direct interface, enabling them to simply click a button to initiate summarization of the current webpage or to upload a PDF directly from their browser.
 - Once activated, it securely sends the webpage URL or the uploaded PDF content to the Flask server.
 - This **Flask server**, acting as the intelligent backend, processes the request, orchestrates the summarization using the OpenVINO backend and LangChain tools, and then sends the concise summary back to the extension for display.
 - This clear separation of concerns ensures a responsive user experience within the browser while offloading heavy computational tasks to a dedicated and scalable server.

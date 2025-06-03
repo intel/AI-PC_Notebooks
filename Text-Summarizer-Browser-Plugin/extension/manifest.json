@@ -6,6 +6,6 @@
     "permissions": ["activeTab"],
     "host_permissions": ["http://localhost:5000/"],
     "action": {
-        "default_popup": "popup.html"
+      "default_popup": "popup.html"
     }
-}
+  }
