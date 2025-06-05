@@ -17,9 +17,10 @@
                 <select id="modelSelect">
                     <option value="">-----</option>
                     <option value="Meta LLama 2">Meta Llama 2</option>
-                    <option value="Qwen 7B Instruct">Qwen 7B Instruct Model</option>
+                    <option value="Qwen 7B Instruct">Qwen 7B Instruct</option>
                 </select>
             </div>
+            <div id="modelErrorMessage" class="error-message hidden"></div>
             <button id="selectModelButton" class="button">Select Model</button>
         </div>
  
@@ -37,6 +38,7 @@
                     <label for="urlInput">Enter URL:</label>
                     <input type="text" id="urlInput" pattern="https://.*" placeholder="Enter an URL here:" required/>
                 </div>
+                <div id="urlErrorMessage" class="error-message hidden"></div>
                 <button id="sendUrlButton" class="button">Summarize</button>
                 <p id="responseElement" class="step hidden"></p>
                  
@@ -47,6 +49,7 @@
                       <input type="text" id="urlQueryInput" placeholder="enter your query here" class="step hidden">
                       <button id="urlQueryButton" class="step hidden">Answer</button>
                     </div>
+                    <div id="urlQueryErrorMessage" class="error-message hidden"></div>
                     <ul id="answerList"></ul>
                 </div>
             </div>
@@ -56,6 +59,7 @@
                     <label for="pdfFile"><b> Select PDF: </b></label>
                     <input type="file" id="pdfFile" accept="application/pdf">
                 </div>
+                <div id="pdfErrorMessage" class="error-message hidden"></div>
                 <div id="progressContainer" class="progress">
                     <div class="progress-bar">
                         <div id="uploadProgress"></div>
@@ -72,6 +76,7 @@
                       <input type="text" id="pdfQueryInput" placeholder="enter your query here" class="step hidden">
                       <button id="pdfQueryButton" class="step hidden">Answer</button>
                     </div>
+                    <div id="pdfQueryErrorMessage" class="error-message hidden"></div>
                     <ul id="answerListPdf"></ul>
                 </div>
             </div>
