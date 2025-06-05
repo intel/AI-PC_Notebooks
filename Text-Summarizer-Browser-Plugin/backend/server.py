@@ -121,13 +121,13 @@ if __name__ == '__main__':
     print("""
     🎉 Flask server is Ready! 🎉
     Your application is now live and waiting for interaction!
-    
+
     **🚀 Essential Step: Activate Your Browser Plugin!**
-    
+
     - This application operates through its dedicated browser extension.
     - To begin, please open your web browser and locate the plugin's icon, which looks like `T`, in your toolbar (it's often in the top-right corner).
     - Click on the `T` icon to access the browser extension
-    
+
     **Having trouble?**
     - Is the plugin loaded? If you haven't already, please load it by following the Readme.md file.
     - Is it enabled? Double-check your browser's extension settings to ensure the plugin isn't disabled.
