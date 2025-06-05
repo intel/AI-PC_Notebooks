@@ -87,6 +87,7 @@ Text-Summarizer-Browser-Plugin/
      ```
 2. **Install dependencies:**
    ```sh
+   cd AI-PC_Notebooks/Text-Summarizer-Browser-Plugin/
    uv sync
    # If you encounter issues:
    uv clean
@@ -99,25 +100,31 @@ Text-Summarizer-Browser-Plugin/
    uv huggingface-cli login
    ```
 2. **Export models to OpenVINO IR format:**
+
+   > ⚠️ **Warning:** Exporting models can take a significant amount of time, potentially exceeding 10 minutes depending on your hardware and network conditions.
+
+   > **Note:** Llama models require [access approval](https://www.llama.com/llama-downloads).
+   
    ```sh
    mkdir models
    cd models
    uv run optimum-cli export openvino --model meta-llama/Llama-2-7b-chat-hf --weight-format int4 ov_llama_2
    uv run optimum-cli export openvino --model Qwen/Qwen2-7B-Instruct --weight-format int4 ov_qwen7b
    ```
-   > **Note:** Llama models require [access approval](https://www.llama.com/llama-downloads).
 
 ### Running the Backend
 
 - **Via Jupyter Notebook:**
-  1. Launch Jupyter Lab:
-     ```sh
-     uv run jupyter lab
-     ```
-  2. Open `TextSummarizerPlugin.ipynb` and run all cells.
+
+  Launch Jupyter Lab
+   ```sh
+   uv run jupyter lab
+   ```
+  Next, open `TextSummarizerPlugin.ipynb` and run all cells.
 
 - **Via Terminal:**
-  1. Start the FastAPI server:
+
+  Start the FastAPI server:
      ```sh
      cd backend
      uv run fastapi dev server.py --port 5000
@@ -128,8 +135,9 @@ Text-Summarizer-Browser-Plugin/
 1. Open Chrome and navigate to `chrome://extensions`.
 2. Enable **Developer Mode**.
 3. Click **Load unpacked** and select the `extension` directory.
-![Loading the Chrome Extension](assets/load_extension.png)
 4. Pin the extension for quick access.
+
+![Loading the Chrome Extension](assets/load_extension.png)
 
 ---
 

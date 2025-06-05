@@ -44,6 +44,10 @@ async def get_engine():
         raise HTTPException(status_code=500, detail="Engine not initialized")
     return engine_instance
 
+@app.get("/")
+async def root():
+    return {"message": "The backend server is running. Please use the browser plugin to interact with it."}
+
 
 @app.post("/select-model")
 async def select_model(
