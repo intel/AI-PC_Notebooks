@@ -1,4 +1,5 @@
 # Importing necessary libraries
+import warnings
 from transformers import AutoTokenizer, pipeline
 from optimum.intel import OVModelForCausalLM
 from langchain_community.llms import HuggingFacePipeline
@@ -8,6 +9,10 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.document_loaders import WebBaseLoader, PyPDFLoader
+import openvino as ov
+import logging
+os.environ['USER_AGENT'] = 'myagent'
+warnings.filterwarnings("ignore")
 
 # Prompt Templates for Summarization & QA Bot
 summary_template = """Write a concise summary of the following: "{context}" CONCISE SUMMARY: """
@@ -57,8 +62,23 @@ def load_llm(model_id):
                 model_path = '../models/ov_llama_2'
             elif model_id == "Qwen 7B Instruct":
                 model_path = '../models/ov_qwen7b'
-            model = OVModelForCausalLM.from_pretrained(
-                model_path, device='GPU')
+            core = ov.Core()
+            available_devices = core.available_devices
+            logging.info(f"Detected OpenVINO devices: {available_devices}")
+            device = 'CPU'
+            for device_name in available_devices:
+                if device_name.startswith('GPU'):
+                    device = device_name
+                    logging.info(
+                        f"Intel GPU found: '{device}'. Attempting to load model on it first.")
+                    break
+            else:
+                logging.info(
+                    "No Intel GPU detected by OpenVINO. Proceeding with CPU.")
+
+            model = OVModelForCausalLM.from_pretrained(model_path,
+                                                       device=device
+                                                       )
             tokenizer = AutoTokenizer.from_pretrained(model_path)
             pipe = pipeline(
                 "text-generation",

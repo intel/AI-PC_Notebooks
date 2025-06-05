@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Step 2: Web Summarizer
     function ValidURL(url){
-        var regex = /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+        var regex = /https?:\/\/[^\s/$.?#].[^\s]*/i;
         if(!regex .test(url)) {
             alert("Please enter valid URL."); 
         } 
