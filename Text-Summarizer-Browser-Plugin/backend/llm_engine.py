@@ -1,3 +1,7 @@
+import os
+os.environ['USER_AGENT'] = "SummarizeBot"
+
+import openvino as ov
 from transformers import AutoTokenizer, pipeline
 from optimum.intel import OVModelForCausalLM
 from langchain_chroma import Chroma
@@ -6,6 +10,14 @@ from langchain.prompts import PromptTemplate
 from langchain_huggingface import HuggingFaceEmbeddings, HuggingFacePipeline
 from langchain_community.document_loaders import WebBaseLoader, PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+def get_device():
+    core = ov.Core()
+    available_devices = core.available_devices
+    for device in available_devices:
+        if device.startswith("GPU"):
+            return device
+    return "CPU"  # Fallback to CPU if no GPU is available
 
 
 class TextSummarizerEngine:
@@ -56,7 +68,8 @@ class TextSummarizerEngine:
             raise ValueError(f"Unsupported model ID: {model_id}")
             
         # Load the model with OpenVINO optimization
-        model = OVModelForCausalLM.from_pretrained(self.model_path)
+        device = get_device()
+        model = OVModelForCausalLM.from_pretrained(self.model_path, device=device)
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_path)
         
         # Create a text generation pipeline
