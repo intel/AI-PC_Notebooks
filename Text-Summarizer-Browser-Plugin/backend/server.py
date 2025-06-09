@@ -11,11 +11,14 @@ from llm_engine import TextSummarizerEngine
 # Suppress warnings
 warnings.filterwarnings("ignore")
 
+
 class ModelSelectionRequest(BaseModel):
     model_id: Literal["Meta LLama 2", "Qwen 7B Instruct"]
 
+
 class UrlRequest(BaseModel):
     url: HttpUrl
+
 
 # Create FastAPI app instance
 app = FastAPI()
@@ -30,6 +33,8 @@ app.add_middleware(
 engine_instance = None
 
 # Startup event to initialize the engine
+
+
 @app.on_event("startup")
 async def startup_event():
     """Initialize the TextSummarizerEngine when the application starts"""
@@ -38,11 +43,14 @@ async def startup_event():
     print("TextSummarizerEngine initialized on startup")
 
 # Dependency to get the engine
+
+
 async def get_engine():
     """Dependency to provide the engine to routes that need it"""
     if engine_instance is None:
         raise HTTPException(status_code=500, detail="Engine not initialized")
     return engine_instance
+
 
 @app.get("/")
 async def root():
@@ -51,7 +59,7 @@ async def root():
 
 @app.post("/select-model")
 async def select_model(
-    req: ModelSelectionRequest, 
+    req: ModelSelectionRequest,
     engine: TextSummarizerEngine = Depends(get_engine)
 ):
     """
@@ -60,7 +68,6 @@ async def select_model(
     # Load the selected model
     engine.load_model(req.model_id)
     return {"message": f"Model {req.model_id} loaded successfully."}
-
 
 
 # Add a cleanup event to free resources when the server shuts down
@@ -84,11 +91,11 @@ async def process_url(
         url = str(url_req.url)
         if not url:
             return JSONResponse(content={"message": "No URL provided"}, status_code=400)
-        
+
         # Make sure the model is loaded
         if engine.llm is None:
             return JSONResponse(content={"message": "Model not loaded. Please select a model first."}, status_code=400)
-            
+
         # Process the URL and return summary
         summary = await engine.process_document(url, is_url=True)
         return JSONResponse(content={"message": summary}, status_code=200)
@@ -99,7 +106,7 @@ async def process_url(
 
 @app.post("/upload-pdf")
 async def upload_pdf(
-    pdf_file: UploadFile = File(...), 
+    pdf_file: UploadFile = File(...),
     engine: TextSummarizerEngine = Depends(get_engine)
 ):
     """
@@ -117,16 +124,17 @@ async def upload_pdf(
             # Make sure the model is loaded
             if engine.llm is None:
                 return JSONResponse(content={"message": "Model not loaded. Please select a model first."}, status_code=400)
-                
+
             # Process the PDF and return summary
             summary = await engine.process_document(temp_pdf_path, is_url=False)
-            return JSONResponse(content={"message": summary}, status_code=200) 
+            return JSONResponse(content={"message": summary}, status_code=200)
 
         except Exception as e:
             return JSONResponse(content={"message": f"Error processing PDF: {str(e)}"}, status_code=500)
 
     else:
         return JSONResponse(content={"message": "Invalid file type. Please upload a PDF."}, status_code=400)
+
 
 @app.post("/query")
 async def query(
@@ -136,14 +144,14 @@ async def query(
     try:
         if not query:
             return JSONResponse(content={"message": "No query provided"}, status_code=400)
-            
+
         # Make sure the model and vectorstore are ready
         if engine.llm is None or engine.vectorstore is None:
             return JSONResponse(
-                content={"message": "No document processed yet or model not loaded"}, 
+                content={"message": "No document processed yet or model not loaded"},
                 status_code=400
             )
-            
+
         # Get answer to the query
         response_message = await engine.answer_question(query)
         return {"message": response_message}
@@ -155,13 +163,13 @@ if __name__ == "__main__":
     print("""
     🎉 FastAPI server is Ready! 🎉
     Your application is now live and waiting for interaction!
-    
+
     **🚀 Essential Step: Activate Your Browser Plugin!**
-    
+
     - This application operates through its dedicated browser extension.
     - To begin, please open your web browser and locate the plugin's icon, which looks like `T`, in your toolbar (it's often in the top-right corner).
     - Click on the `T` icon to access the browser extension
-    
+
     **Having trouble?**
     - Is the plugin loaded? If you haven't already, please load it by following the Readme.md file.
     - Is it enabled? Double-check your browser's extension settings to ensure the plugin isn't disabled.
