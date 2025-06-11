@@ -175,4 +175,4 @@ if __name__ == "__main__":
     - Is it enabled? Double-check your browser's extension settings to ensure the plugin isn't disabled.
     - Have you pinned the extension? Pin the extension.
     """)
-    uvicorn.run(app, host="0.0.0.0", port=5000)
+    uvicorn.run(app, host="127.0.0.1", port=5000)
