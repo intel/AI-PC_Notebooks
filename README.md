@@ -12,6 +12,7 @@ Welcome to the AI PC GenAI Samples Repository.This repository features a curated
 - [Text Summarizer Browser Plugin on AI PC](./Text-Summarizer-Browser-Plugin/TextSummarizerPlugin.ipynb)
 - [AI Travel Agent](./AI-Travel-Agent/AI_Travel_Agent.ipynb)
 - [AI-Upscaling-With-NPU](./AI-Upscaling-With-NPU/AI_Upscaling_With_NPU.ipynb)
+- [Video Description Generation Query Retrieval](./Video-Description-Generation-Query-Retrieval/Video_Description_Generation_Query_Retrieval.ipynb)
 
 ## Requirements
 To set up your AIPC for running with Intel iGPUs, follow these essential steps:
