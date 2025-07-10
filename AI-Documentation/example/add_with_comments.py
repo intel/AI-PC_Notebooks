@@ -1,5 +1,6 @@
 import os
 
+
 def greet(name: str) -> None:
     """
     Prints a personalized greeting message to the console.
@@ -16,16 +17,17 @@ def greet(name: str) -> None:
     # Print a greeting message to the console, using the provided name
     print(f"Hello, {name}!")  # The f-string is used to insert the name variable into the greeting message
 
+
 class MyClass:
     def __init__(self):
         """
         Initializes the object with a default value.
-    
+
         This method sets the initial value of the object to 10.0.
-    
+
         Args:
             None
-    
+
         Returns:
             None
         """
@@ -35,17 +37,17 @@ class MyClass:
     def add(self, x, y):
         """
         Adds two numbers together.
-    
+
         This method takes two arguments, x and y, and returns their sum.
         It is intended for use in arithmetic operations.
-    
+
         Args:
             x (int or float): The first number to add.
             y (int or float): The second number to add.
-    
+
         Returns:
             int or float: The sum of x and y.
-    
+
         Notes:
             The method does not perform any error checking on the input values.
             It assumes that x and y are valid numbers.
@@ -53,6 +55,7 @@ class MyClass:
         # The method simply returns the sum of x and y, which is a basic arithmetic operation.
         # The result is calculated using the + operator, which is overloaded for numbers in Python.
         return x + y
+
 
 if __name__ == "__main__":
     greet("World")
