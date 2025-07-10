@@ -14,7 +14,6 @@ Welcome to the AI PC GenAI Samples Repository.This repository features a curated
 - [AI-Upscaling-With-NPU](./AI-Upscaling-With-NPU/AI_Upscaling_With_NPU.ipynb)
 - [Video Description Generation Query Retrieval](./Video-Description-Generation-Query-Retrieval/Video_Description_Generation_Query_Retrieval.ipynb)
 - [Genre-driven Storytelling](./Genre-driven-storytelling/Genre-driven-storytelling.ipynb)
-- [Finetune_Image_Captioning](./Finetune_Image_Captioning/finetune_image_captioning.ipynb)
 
 ## Requirements
 To set up your AIPC for running with Intel iGPUs, follow these essential steps:
