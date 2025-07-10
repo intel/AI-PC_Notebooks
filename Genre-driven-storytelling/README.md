@@ -37,7 +37,7 @@ This Sample directory contains:
 | [Genre-driven-storytelling.ipynb](./Genre-driven-storytelling.ipynb) | Enables faster and affordable company logo generation using language and diffusion models with the help of automated prompt engineering  |
 
 
-## Run the `Automated Logo Generation` Sample:
+## Run the `Genre-driven Storytelling` Sample:
 ## Installing Prerequisites && Setting Up the Environment
 
 ### For Windows:
@@ -126,7 +126,7 @@ To install any software using commands, Open a new terminal window by right-clic
    uv run python -m ipykernel install --user --name=uv_env --display-name="uv_env"
    ```
 
-2. Open the [Automated Logo Generation](./Automated_Logo_Generation.ipynb) notebook file in the jupyter notebook, select the `uv_env` environment.
+2. Open the [Genre-driven Storytelling](./Genre-driven-storytelling.ipynb) notebook file in the jupyter notebook, select the `uv_env` environment.
 
 ## Sample Execution
 GPU utilization would be observed as this sample is optimized to run on Intel XPUs.
