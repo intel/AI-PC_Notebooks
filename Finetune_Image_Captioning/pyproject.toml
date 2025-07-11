@@ -1,0 +1,32 @@
+[project]
+name = "finetune-image-captioning"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "torch>=2.7.0",
+    "torchvision>=0.22.0",
+    "pytorch-triton-xpu>=3.3.0 ; sys_platform == 'win32' or sys_platform == 'linux'",
+    "datasets>=3.6.0",
+    "jupyter>=1.1.1",
+    "lab>=8.4",
+    "transformers>=4.52.3",
+    "evaluate>=0.4.3",
+    "bert-score>=0.3.13",
+]
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-xpu", marker = "sys_platform == 'win32' or sys_platform == 'linux'" },
+]
+torchvision = [
+  { index = "pytorch-xpu", marker = "sys_platform == 'win32' or sys_platform == 'linux'" },
+]
+pytorch-triton-xpu = [
+  { index = "pytorch-xpu", marker = "sys_platform == 'win32' or sys_platform == 'linux'" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-xpu"
+url = "https://download.pytorch.org/whl/xpu"
+explicit = true
