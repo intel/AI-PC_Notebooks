@@ -1,0 +1,29 @@
+<!--
+    Original Source from https://learn.microsoft.com/en-us/windows/ai/directml/webnn-tutorial
+    Modified HTML UI
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <script src="./main.js"></script> 
+    <!-- <script src="./main_device_priority.js"></script>  -->
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.webgpu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.22.12/jimp.min.js" integrity="sha512-8xrUum7qKj8xbiUrOzDEJL5uLjpSIMxVevAM5pvBroaxJnxJGFsKaohQPmlzQP8rEoAxrAujWttTnx3AMgGIww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>  
+  </head>
+  <body>
+    <main>
+        <h1>WebNN Image Classification</h1>
+        <h3>Image Classification with onnxruntime-web</h3>
+        <h4>From Microsoft <a href="https://learn.microsoft.com/en-us/windows/ai/directml/webnn-tutorial">WebNN API Tutorial</a></h4>
+        <p><input type='file' id='imageSelector' accept='image/*' /></p>
+        <div><img id="inputImage" src="" width="400"></div> 
+        <button id="classifyImage" hidden type="button">Classify Image</button> 
+        <p id="log"></p>
+        <h2 id="output"></h2>       
+    </main>
+  </body>
+</html>

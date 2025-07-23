@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="module">
+
+    import { env, pipeline } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers';
+
+    async function classify() {
+      // Setup transformers pipline: model, ep, device, dtype
+      console.log('Loading Model... ');
+      const classifier = await pipeline('image-classification', 'Xenova/resnet-18', {
+        dtype: 'q8', // fp32, fp16, q8
+        device: 'webnn-gpu',
+      });
+      // Run inference
+      console.log('Running Inference... ');
+      const output = await classifier('./images/11.jpg');
+      console.log('Done');
+      // Display output
+      console.log(output);
+      console.log(output[0].label);
+    };
+
+    classify();          
+    </script>
+  </head>
+  <body>
+    <h1>WebNN Image Classification</h1>
+    <h3>Image Classification with transformers.js</h3>
+  </body>
+</html>

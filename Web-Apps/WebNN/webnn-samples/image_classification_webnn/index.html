@@ -1,0 +1,26 @@
+<!--
+    Original Source from https://github.com/webmachinelearning/webnn-samples/blob/master/image_classification/index.html
+    Modified HTML UI
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>WebNN Image Classification Example</title>
+  <script type="module" src='./main.js'></script>
+</head>
+
+<body>
+  <h1>WebNN Image Classification</h1>
+  <h3>Image Classification with direct WebNN API calls</h3>
+  <h4>From webmachinelearning <a href="https://github.com/webmachinelearning/webnn-samples/tree/master/image_classification">WebNN Samples Image Classification</a></h4>
+  <p><input type='file' id='imageFile' accept='image/*' /></p>
+  <div><img id='displayImage' width="400"></div>
+  <div><img hidden id='inputImage' width="400"></div>
+  <button id="classifyImage" hidden type="button">Classify Image</button>
+  <p id="log"></p>
+  <h2 id="output"></h2>
+</body>
+
+</html>
