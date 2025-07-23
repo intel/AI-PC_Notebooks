@@ -1,0 +1,54 @@
+<html>
+<body>
+  <h1>WebNN</h1>
+  <h3>WebNN Computation</h3>
+
+  <script type="module">
+
+(async () => {
+  // Check WebNN support
+  var msg = "";
+  if (!navigator.ml) {
+    msg = "<p>WebNN not enabled in browser</p>";
+    msg += "<p>Open URL chrome://flags/, search for webnn, and set to enable</p>";
+    document.getElementsByTagName('body')[0].innerHTML += msg;
+    return;
+  }
+
+  // Select device for computation
+  var devices = ['gpu', 'cpu'];
+  var context;
+  for (const device of devices) {
+    try {
+      context = await navigator.ml.createContext({ deviceType: device });
+      document.getElementsByTagName('body')[0].innerHTML += "<p>WebNN "+ device + " selected</p>";
+      break;
+    } catch (e) {}
+  }
+
+  document.getElementsByTagName('body')[0].innerHTML += "<p>Starting Computation...</p>";
+
+  const builder = new MLGraphBuilder(context);
+  const input = {dataType: 'float32', shape: [8, 8], writable: true};
+  const output = {dataType: 'float32', shape: [8, 8], readable: true};
+  // Step 1: Create a computational graph calculating `c = a * b`.
+  const a = builder.input('a', input);
+  const b = builder.input('b', input);
+  const c = builder.matmul(a, b);
+  // Step 2: Compile it into an executable graph.
+  const graph = await builder.build({c});
+  // Step 3: Bind input and output buffers to the graph and execute.
+  const tensorA = await context.createTensor(input);
+  const tensorB = await context.createTensor(input);
+  const tensorC = await context.createTensor(output);
+  context.writeTensor(tensorA, new Float32Array(8*8).fill(1.0));
+  context.writeTensor(tensorB, new Float32Array(8*8).fill(2.0));
+  context.dispatch(graph, {a: tensorA, b: tensorB}, {c: tensorC});
+  const results = await context.readTensor(tensorC);
+
+  document.getElementsByTagName('body')[0].innerHTML += "Done, C[0,0] = " + new Float32Array(results)[0,0];
+})();
+
+  </script>
+</body>
+</html>
