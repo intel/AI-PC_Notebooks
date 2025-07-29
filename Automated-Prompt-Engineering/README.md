@@ -20,6 +20,50 @@ We use DSPy, an automatic prompt engineering framework to create a pipeline for 
 | Hardware      | Intel® Core™ Ultra, Intel Arc™ Graphics, or Intel Graphics                                                                                                                                                                                                                                                                                          |
 | Software      | [Intel GPU Client Driver For Linux](https://dgpu-docs.intel.com/driver/client/overview.html), [oneAPI Base Toolkit](https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html), [MS Visual Studio 2022 for Windows](https://visualstudio.microsoft.com/downloads/?q=build+tools#build-tools-for-visual-studio-2022) |
 
+## Manual Model and Dataset Download
+
+Before running the code, you need to download the required models and dataset manually. To do that you can use Hugging Face hub download methods:
+
+1. With CLI using `download` method providing repository and file you want to download, then local path where file should be located:
+   ```bash
+   # Download all supported models
+   huggingface-cli download Qwen/Qwen2-0.5B-Instruct-GGUF qwen2-0_5b-instruct-q4_k_m.gguf ./models/qwen2-0_5b-instruct-q4_k_m.gguf
+   huggingface-cli download Qwen/Qwen2-1.5B-Instruct-GGUF qwen2-1_5b-instruct-q4_k_m.gguf ./models/qwen2-1_5b-instruct-q4_k_m.gguf
+   huggingface-cli download Qwen/Qwen2-7B-Instruct-GGUF qwen2-7b-instruct-q4_k_m.gguf ./models/qwen2-7b-instruct-q4_k_m.gguf
+   huggingface-cli download bartowski/Phi-3.1-mini-4k-instruct-GGUF Phi-3.1-mini-4k-instruct-Q4_K_M.gguf ./models/Phi-3.1-mini-4k-instruct-Q4_K_M.gguf
+   huggingface-cli download bartowski/Llama-3.2-1B-Instruct-GGUF Llama-3.2-1B-Instruct-Q4_K_M.gguf ./models/Llama-3.2-1B-Instruct-Q4_K_M.gguf
+   huggingface-cli download lmstudio-community/Meta-Llama-3-8B-Instruct-GGUF Meta-Llama-3-8B-Instruct-Q4_K_M.gguf ./models/Meta-Llama-3-8B-Instruct-Q4_K_M.gguf
+   
+   # Download ARC dataset
+   python -c "from datasets import load_dataset; dataset = load_dataset('allenai/ai2_arc', 'ARC-Challenge', split='train')"
+   ```
+
+2. Directly in Python code:
+   ```python
+   from huggingface_hub import hf_hub_download
+   from datasets import load_dataset
+
+   # Download all supported models
+   models = [
+       ("Qwen/Qwen2-0.5B-Instruct-GGUF", "qwen2-0_5b-instruct-q4_k_m.gguf"),
+       ("Qwen/Qwen2-1.5B-Instruct-GGUF", "qwen2-1_5b-instruct-q4_k_m.gguf"),
+       ("Qwen/Qwen2-7B-Instruct-GGUF", "qwen2-7b-instruct-q4_k_m.gguf"),
+       ("bartowski/Phi-3.1-mini-4k-instruct-GGUF", "Phi-3.1-mini-4k-instruct-Q4_K_M.gguf"),
+       ("bartowski/Llama-3.2-1B-Instruct-GGUF", "Llama-3.2-1B-Instruct-Q4_K_M.gguf"),
+       ("lmstudio-community/Meta-Llama-3-8B-Instruct-GGUF", "Meta-Llama-3-8B-Instruct-Q4_K_M.gguf")
+   ]
+   
+   for repo_id, filename in models:
+       hf_hub_download(
+           repo_id=repo_id,
+           filename=filename,
+           local_dir="./models"
+       )
+   
+   # Download ARC dataset
+   dataset = load_dataset("allenai/ai2_arc", "ARC-Challenge", split="train")
+   ```
+
 ## Run the `Automated Prompt Engineering` Sample
 
 The command for both Windows and Linux will install the necessary dependencies and run the sample. The sample uses [`pixi`](https://github.com/prefix-dev/pixi/) for environment and task management.
