@@ -1,0 +1,18 @@
+{
+    "per_channel": true,
+    "reduce_range": true,
+    "per_model_config": {
+        "model": {
+            "op_types": [
+                "Conv",
+                "Gemm",
+                "GlobalAveragePool",
+                "Flatten",
+                "MaxPool",
+                "Relu",
+                "Add"
+            ],
+            "weight_type": "QUInt8"
+        }
+    }
+}

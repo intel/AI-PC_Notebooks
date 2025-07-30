@@ -1,0 +1,32 @@
+<html>
+
+<body>
+  <h1>WebNN</h1>
+  <h3>Select a device for WebNN</h3>
+
+  <script type="module">
+
+(async () => {
+  var msg = "";
+  if (!navigator.ml) {
+    msg = "<p>WebNN not enabled in browser</p>";
+    msg += "<p>Open URL chrome://flags/, search for webnn, and set to enable</p>";
+    document.getElementsByTagName('body')[0].innerHTML += msg;
+    return;
+  }
+
+  var devices = ['npu', 'gpu', 'cpu'];
+  var context;
+  
+  for (const device of devices) {
+    try {
+      context = await navigator.ml.createContext({ deviceType: device });
+      document.getElementsByTagName('body')[0].innerHTML += "<p>WebNN "+ device + " selected</p>";
+      break;
+    } catch (e) {}
+  }
+})();
+
+</script>
+</body>
+</html>

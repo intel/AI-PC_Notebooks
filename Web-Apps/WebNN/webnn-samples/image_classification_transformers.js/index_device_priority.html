@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="module">
+
+    import { pipeline } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers';
+
+    async function classify() {
+      // Setup transformers pipline: model, ep, device, dtype
+      document.getElementById("log").innerHTML = 'Loading Model... ';
+
+      // List of WebNN backends to try in order of priority
+      const backends = ['webnn-npu', 'webnn-gpu', 'webgpu', 'wasm', 'webnn-cpu'];
+      let selectedBackend = null;
+      let classifier = null;
+
+      // work-around for device priority bug in transformers.js (unused pipeline with wasm)
+      classifier = await pipeline('image-classification', 'Xenova/resnet-18', {dtype: 'q8', device: 'wasm'});
+
+      // Check for available backends
+      for (const backend of backends) {
+        try {
+          console.log(`Trying backend: ${backend}`);
+          classifier = await pipeline('image-classification', 'Xenova/resnet-18', {
+            dtype: 'q8', // fp32, fp16, q8
+            device: backend,
+          });
+          console.log(`Using backend: ${backend}`);
+          selectedBackend = backend;
+          break;
+        } catch (e) {
+          console.log(`Backend ${backend} not available:`, e.message);
+        }
+      }
+
+      if(selectedBackend) {
+        // Run inference
+        document.getElementById("log").innerHTML += 'Running Inference... ';
+        var input = document.getElementById('inputImage').src;
+        const output = await classifier(input);
+        document.getElementById("log").innerHTML += 'Done';
+        // Display output
+        document.getElementById("output").innerHTML = output[0].label
+        console.log(output);
+      } else {
+        document.getElementById("log").innerHTML += 'No supported backend found.';
+        console.log('No supported backend found.');
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('imageSelector').addEventListener('change', (e) => {
+        const files = e.target.files;
+        if (files.length > 0) {
+          document.getElementById('inputImage').src = URL.createObjectURL(files[0]);
+          document.getElementById('classifyImage').removeAttribute('hidden');
+        }
+      });
+      document.getElementById('classifyImage').addEventListener('click', (e) => {
+        document.getElementById("output").innerHTML = '';
+        classify();
+      });
+    });          
+    </script>
+  </head>
+  <body>
+    <h1>WebNN Image Classification</h1>
+    <h3>Image Classification with transformers.js</h3>
+    <h5>HuggingFace Checkpoint Model</h5>
+    <p><input type='file' id='imageSelector' accept='image/*' /></p>
+    <div><img id="inputImage" src="" width="400"></div> 
+    <button id="classifyImage" hidden type="button">Classify Image</button> 
+    <p id="log"></p>
+    <h2 id="output"></h2>
+  </body>
+</html>

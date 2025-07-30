@@ -1,0 +1,391 @@
+<!--
+Chatgpt & Rakshith, K. (2025, January 24). "create a html js app in one html file, it should be like a chat app where i can type a message and hitting enter or send button should show up in chat style bubble and generate a dummy reply" [AI-generated code]. Chatgpt https://chatgpt.com
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #111;
+        }
+
+        .main-container {
+            height: 80%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #555;
+            border-radius: 10px;
+            max-width:500px;
+        }
+
+        .header-container {
+            justify-content: flex-start;
+            text-align:center;
+            font-size: 24px;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            background-color: white;
+            position: relative;
+        }
+
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 10px;
+            background-color: #f4f4f9;
+            overflow-y: auto;
+            max-height: 100%;
+        }
+
+        .info-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 24px;
+            height: 24px;
+            border: 1px solid #007bff;
+            border-radius: 50%;
+            background-color: transparent;
+            color: #007bff;
+            font-size: 16px; 
+            font-weight: bold;
+            text-align: center;
+            line-height: 24px;
+            cursor: pointer;
+        }
+
+        .info-button:hover {
+            background-color: #ccc;
+        }
+
+        .message {
+            max-width: 70%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            word-wrap: break-word;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background-color: #007bff;
+            color: white;
+        }
+
+        .message.bot {
+            align-self: flex-start;
+            background-color: #e5e5e5;
+            color: #666;
+        }
+
+        .input-container {
+            display: flex;
+            border-top: 1px solid #ccc;
+            padding: 10px;
+            background-color: white;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .image-container {
+            position: relative;
+            width: 150px;
+            flex-shrink: 0;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .image-container img {
+            width: 100%;
+            height:auto;
+            filter: blur(10px);
+            transition: filter 0.3s ease;
+        }
+
+        .image-container .label {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: black;
+            text-shadow: 0px 0px 10px rgba(255, 255, 255, 1);
+        }
+
+        .image-container .view-button {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-container:hover .view-button {
+            opacity: 1;
+        }
+
+        .image-container.unblurred img {
+            filter: none;
+        }
+
+        .dialog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dialog {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 90%;
+            width: 300px;
+        }
+        .dialog span {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            word-wrap: break-word;
+            color: #d55;
+        }
+
+        .dialog button {
+            margin: 10px 5px;
+            padding: 10px 15px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .dialog .confirm {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .dialog .cancel {
+            background-color: #e5e5e5;
+            color: black;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+  <div class="main-container">
+    <div class="header-container">
+        <span id="header-container">Loading...</span>
+        <div class="info-button" id="info">i</div>
+    </div>
+    <div class="chat-container" id="chat-container"></div>
+    <div class="input-container">
+        <input type="text" disabled id="message-input" placeholder="Type a message...">
+        <button id="send-button">Send</button>
+    </div>
+
+    <div class="dialog-overlay" id="dialog-overlay" style="display: none;">
+        <div class="dialog">
+            <span id="impolite-message"></span>
+            <p>You message is not very polite, Are you sure you want to send this message?</p>
+            <button class="confirm" id="confirm-send">Yes</button>
+            <button class="cancel" id="cancel-send">No</button>
+        </div>
+    </div>
+
+    <div class="dialog-overlay" id="info-overlay" style="display: none;">
+        <div class="dialog">
+            <p>Privacy</p>
+            <p>Your privacy is important to us.</p>
+            <p>Your Messages are all private, we don't send any messages or images to remote server for processing.</p>
+            <button class="cancel" id="close">Close</button>
+        </div>
+    </div>
+  </div>
+
+    <script type="module">
+        const chatContainer = document.getElementById('chat-container');
+        const headerContainer = document.getElementById('header-container');
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+        const impoliteMessage = document.getElementById('impolite-message');
+        const dialogOverlay = document.getElementById('dialog-overlay');
+        const infoOverlay = document.getElementById('info-overlay');
+        const confirmSend = document.getElementById('confirm-send');
+        const cancelSend = document.getElementById('cancel-send');
+        const close = document.getElementById('close');
+        const infoButton = document.getElementById('info');
+        let imageUrls = ['./images/11.jpg', './images/22.jpg', './images/33.jpg'];
+        let pendingMessage = '';
+
+        // Load AI models
+        import { pipeline } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers';
+        const imageClassifier = await pipeline('image-classification', 'Xenova/resnet-18', {dtype: 'q8', device: 'webgpu'});
+        const politeGuard = await pipeline('sentiment-analysis', 'Intel/polite-guard', {dtype: 'fp32', device: 'webgpu'}); 
+        headerContainer.textContent = "Messages";
+        messageInput.removeAttribute('disabled');
+
+        function generateRandomString() {
+            let result = '';
+            let spaces = 0;
+
+            while (result.length < Math.floor(Math.random() * 15) + 3) {
+                const isSpace = Math.random() < 0.3 && spaces < 3; // 30% chance for a space
+                if (isSpace && result.length > 0 && result[result.length - 1] !== ' ') {
+                    result += ' ';
+                    spaces++;
+                } else {
+                    result += '█';
+                }
+            }
+            return result;
+        }
+
+        function addMessage(content, type) {
+            const message = document.createElement('div');
+            message.classList.add('message', type);
+            message.textContent = content;
+            chatContainer.appendChild(message);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        async function addImage(content, type) {
+            let imageUrl = imageUrls.pop();
+            // Create container
+            const imageContainer = document.createElement('div');
+            imageContainer.classList.add('image-container');
+
+            // Create image
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            imageContainer.appendChild(img);
+
+            // Create label
+            const label = document.createElement('div');
+            label.classList.add('label');
+            imageContainer.appendChild(label);
+
+            // Create button
+            const button = document.createElement('button');
+            button.classList.add('view-button');
+            button.textContent = 'View';
+            button.addEventListener('click', () => {
+                imageContainer.classList.add('unblurred');
+                label.remove();
+                button.remove();
+            });
+            imageContainer.appendChild(button);
+
+            // Append container to parent
+            chatContainer.appendChild(imageContainer);
+
+            // run image classifier
+            const outputs = await imageClassifier(imageUrl);
+            label.textContent = outputs[0].label;
+
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        async function handleSendMessage() {
+            const messageText = messageInput.value.trim();
+            if (messageText) {
+                let sentiment = null;
+                const output = await politeGuard(messageText);
+                sentiment = output[0].label;
+                if(sentiment === 'impolite'){
+                    pendingMessage = messageText;
+                    impoliteMessage.innerHTML = pendingMessage;
+                    dialogOverlay.style.display = 'flex';
+                } else {
+                    addMessage(messageText, 'user');
+                    messageInput.value = '';
+                    if(imageUrls.length){
+                        setTimeout(() => addImage(0, 'bot'), 500);
+                    } else {
+                        setTimeout(() => addMessage(generateRandomString(), 'bot'), 500);
+                    }
+                }
+            }
+        }
+
+        confirmSend.addEventListener('click', () => {
+            addMessage(pendingMessage, 'user');
+            messageInput.value = '';
+            dialogOverlay.style.display = 'none';
+
+            // Simulate a bot response (optional)
+            if(imageUrls.length){
+                setTimeout(() => addImage(0, 'bot'), 500);
+            } else {
+                setTimeout(() => addMessage(generateRandomString(), 'bot'), 500);
+            }
+        });
+
+        cancelSend.addEventListener('click', () => {
+            dialogOverlay.style.display = 'none';
+            pendingMessage = '';
+        });
+
+        sendButton.addEventListener('click', handleSendMessage);
+        messageInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                handleSendMessage();
+            }
+        });
+        infoButton.addEventListener('click', () => {
+            infoOverlay.style.display = 'flex';
+        });
+        close.addEventListener('click', () => {
+            infoOverlay.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

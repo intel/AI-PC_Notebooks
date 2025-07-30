@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="module">
+
+    import { env, pipeline } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers';
+
+    // Allow local model
+    env.allowLocalModels = true
+    env.allowRemoteModels = false
+    env.localModelPath = window.location.href.substring(0, window.location.href.lastIndexOf('/'))
+
+    async function classify() {
+      // Setup transformers pipline: model, ep, device, dtype
+      document.getElementById("log").innerHTML = 'Loading Model... ';
+      const classifier = await pipeline('image-classification', 'Xenova_resnet-18', {
+        dtype: 'q8',
+        device: 'webnn-gpu',
+      });
+      // Run inference
+      document.getElementById("log").innerHTML += 'Running Inference... ';
+      var input = document.getElementById('inputImage').src;
+      const output = await classifier(input);
+      document.getElementById("log").innerHTML += 'Done';
+      // Display output
+      document.getElementById("output").innerHTML = output[0].label
+      console.log(output);
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('imageSelector').addEventListener('change', (e) => {
+        const files = e.target.files;
+        if (files.length > 0) {
+          document.getElementById('inputImage').src = URL.createObjectURL(files[0]);
+          document.getElementById('classifyImage').removeAttribute('hidden');
+        }
+      });
+      document.getElementById('classifyImage').addEventListener('click', (e) => {
+        document.getElementById("output").innerHTML = '';
+        classify();
+      });
+    });          
+    </script>
+  </head>
+  <body>
+    <h1>WebNN Image Classification</h1>
+    <h3>Image Classification with transformers.js</h3>
+    <h5>Local Model</h5>
+    <p><input type='file' id='imageSelector' accept='image/*' /></p>
+    <div><img id="inputImage" src="" width="400"></div> 
+    <button id="classifyImage" hidden type="button">Classify Image</button> 
+    <p id="log"></p>
+    <h2 id="output"></h2>
+  </body>
+</html>
